@@ -1,0 +1,640 @@
+* {
+  background-color: rgb(194, 190, 190);
+}
+
+#box {
+  border: 1px solid rgb(0, 0, 0);
+  margin: 100px;
+  margin-top: 0%;
+  width: 300px;
+  margin-left: 0%;
+}
+
+#box1 {
+  padding: 10;
+  margin: 100px;
+  margin-top: 0%;
+  width: 300px;
+  margin-left: -25%;
+}
+
+div.logo img{
+  width:60%;
+  margin-left: 50%;
+}
+
+.dropbtn {
+  color: white;
+  padding: 16px;
+  font-size: larger;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  margin-left: 40%;
+  margin-top: 5%;
+}
+
+#contact {
+  width: 300px;
+}
+
+h2,
+h3 {
+  margin-left: 20%;
+}
+
+#navbar {
+  
+  margin-left: 10%;
+  margin-top: -30%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-left: 0%;
+}
+
+li {
+  float: left;
+  margin-left: 5%;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+li a.active#home {
+  background-color: rgb(207, 68, 184);
+}
+
+li a.active#Designs {
+  background-color: rgb(174, 39, 192);
+}
+
+.active#Photos {
+  background-color: darkorchid;
+}
+
+div a.active#Sport{
+  background-color: darkorchid;
+}
+
+div a.active#Aviation{
+  background-color: darkorchid;
+}
+
+div a.active#Wildlife{
+  background-color: darkorchid;
+}
+
+/* Change the link color */
+li a:hover {
+  background-color: rgb(221, 31, 196);
+}
+
+.mail {
+  background-color: #fff7f7;
+}
+
+div.Photos img,
+div.Designs img {
+  margin-left: 1%;
+  height: auto;
+  width: 30%;
+}
+
+.Photos:hover {
+  border: 1px solid #000000;
+}
+
+#contact,
+h4,
+p,
+#studies,
+#about {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 1;
+  margin: 20px;
+  margin-left: 0%;
+  color: black;
+  font-weight: bold;
+}
+
+.photo,
+.graphic,
+.webdes {
+  text-align: center;
+  color: #fff7f7;
+}
+
+#photo {
+  background-color: darkorchid;
+}
+
+#graphic {
+  background-color: rgb(174, 39, 192);
+}
+
+h4,
+p {
+  width: 100%;
+  background-color: rgb(231, 230, 222);
+}
+
+#contact {
+  background-color: rgb(207, 68, 184);
+}
+
+#about {
+  background-color: rgb(174, 39, 192);
+}
+
+#photo {
+  color: #ffffff;
+}
+.photo {
+  background-color: darkorchid;
+}
+
+#graphic {
+  color: #ffffff;
+}
+
+.graphic {
+  color: #ffffff;
+  background-color: rgb(174, 39, 192);
+}
+
+.webdes {
+  background-color: rgb(207, 68, 184);
+}
+
+/* Start of Responsive */
+@media only screen and (min-width: 375px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 300px;
+    margin-left: 10%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    width: 300px;
+    margin-left: -15%;
+  }
+
+  div.logo img{
+    width:60%;
+    margin-left: 50%;
+  }
+
+  #contact{
+    width: 300px;
+  }
+
+  .Designs .Photos {
+    margin-left: -10%;
+  }
+
+  #studies,
+  #about
+   {
+    width: 370px;
+    margin-left: 0%;
+  }
+
+  /* h4, */
+  p,
+  h3{
+    width: 300px;
+  }
+
+  #navbar {
+    margin-left: 15%;
+    margin-top: -25%;
+  }
+
+ div.Photos:hover {
+    border: 1px solid #000000;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 425px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 0%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 0%;
+  }
+
+  div.logo img {
+    margin-left: 15%;
+    width: 300px;
+  }
+
+  #navbar {
+    width: 425px;
+    margin-left: 10%;
+    margin-top: -25%;
+    font-size: larger;
+  }
+
+  button {
+    height: 100px;
+    width: 150px;
+  }
+
+  #contact {
+    width: 400px;
+  }
+
+  h3 {
+    font-size: xx-large;
+    margin-left: 15%;
+  }
+
+  h4,
+  p {
+    width: 400px;
+    font-size: x-large;
+    margin-left: 0%;
+  }
+
+  #Designs {
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  div.Photos {
+    margin-left: 30%;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 425px;
+  }
+
+  div.Photos:hover {
+    border: 1px solid #777;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 20%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 0%;
+  }
+
+  div.logo img {
+    margin-left: 50%;
+    width: 300px;
+  }
+
+  #navbar {
+    width: 425px;
+    margin-left: 30%;
+    margin-top: -10%;
+    font-size: larger;
+  }
+
+  .dropdown:hover .dropdown-content{
+    margin-left: 20%;
+    margin-top: 2%;
+  }
+
+  button {
+    height: 100px;
+    width: 150px;
+  }
+
+  #contact {
+    width: 400px;
+  }
+
+  h3 {
+    font-size: xx-large;
+    margin-left: 15%;
+  }
+
+  h4,
+  p {
+    width: 400px;
+    font-size: x-large;
+    margin-left: 0%;
+  }
+
+  #Designs {
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  div.Photos {
+    margin-left: 30%;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 425px;
+  }
+
+  div.Photos:hover {
+    border: 1px solid #777;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 30%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 5%;
+  }
+
+  div.logo img {
+    margin-left: 70%;
+    width: 300px;
+  }
+
+  #navbar {
+    width: 425px;
+    margin-left: 35%;
+    margin-top: -10%;
+    font-size: larger;
+  }
+
+  .dropdown:hover .dropdown-content{
+    margin-left: 20%;
+    margin-top: 2%;
+  }
+
+  button {
+    height: 100px;
+    width: 150px;
+  }
+
+  #contact {
+    width: 400px;
+  }
+
+  h3 {
+    font-size: xx-large;
+    margin-left: 15%;
+  }
+
+  h4,
+  p {
+    width: 400px;
+    font-size: x-large;
+    margin-left: 0%;
+  }
+
+  #Designs {
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  div.Photos {
+    margin-left: 30%;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 425px;
+  }
+
+  div.Photos:hover {
+    border: 1px solid #777;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 35%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    width: 400px;
+    margin-left: 10%;
+  }
+
+  div.logo img {
+    margin-left: 100%;
+    width: 300px;
+  }
+
+  #navbar {
+    width: 425px;
+    margin-left: 40%;
+    margin-top: -5%;
+    font-size: larger;
+  }
+
+  .dropdown:hover .dropdown-content{
+    margin-left: 10%;
+    margin-top: 1%;
+  }
+
+  button {
+    height: 100px;
+    width: 150px;
+  }
+
+  #contact {
+    width: 400px;
+  }
+
+  h3 {
+    font-size: xx-large;
+    margin-left: 15%;
+  }
+
+  h4,
+  p {
+    width: 400px;
+    font-size: x-large;
+    margin-left: 0%;
+  }
+
+  #Designs {
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  div.Photos {
+    margin-left: 30%;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 425px;
+  }
+
+  div.Photos:hover {
+    border: 1px solid #777;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  #box {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 100px;
+    margin-top: 0%;
+    width: 768px;
+    margin-left: 35%;
+  }
+
+  #box1 {
+    padding: 10;
+    margin: 100px;
+    margin-top: 0%;
+    margin-left: 20%;
+  }
+
+  div.logo img {
+    width: 700px;
+  }
+
+  #navbar {
+    width: 500px;
+    margin-left: 40%;
+    margin-top: -4%;
+    font-size: xx-large;
+  }
+
+  .dropdown:hover .dropdown-content{
+    margin-left: 11%;
+    margin-top: 0%;
+  }
+
+  button {
+    height: 100px;
+    width: 150px;
+  }
+
+  #contact {
+    width: 768px;
+  }
+
+  h3 {
+    font-size: xx-large;
+    margin-left: 35%;
+  }
+
+  h4,
+  p {
+    width: 768px;
+    font-size: x-large;
+    margin-left: 0%;
+  }
+
+  div.photo, div.graphic, .webdes{
+    font-size: x-large;
+  }
+
+  #Designs {
+    width: 80%;
+    margin-left: 15%;
+  }
+
+  div.Photos {
+    margin-left: 30%;
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 768px;
+  }
+
+  div.Photos:hover {
+    border: 1px solid #777;
+  }
+
+  div.Photos img {
+    margin-left: 1%;
+    height: auto;
+  }
+}
