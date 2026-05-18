@@ -403,6 +403,12 @@
     /* ── WORK / PROJECTS ── */
     .work { background: var(--bg); }
 
+    h3 a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
     .work-header {
       display: flex;
       align-items: flex-end;
@@ -448,7 +454,22 @@
       position: relative;
       overflow: hidden;
     }
-    .project-thumb-icon { position: relative; z-index: 1; }
+    .project-thumb-icon {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(80%, 220px);
+      max-height: 80%;
+    }
+    .project-thumb-icon img {
+      display: block;
+      max-width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
+    }
     .project-thumb-bg {
       position: absolute;
       inset: 0;
@@ -1058,7 +1079,9 @@
 
           <div class="project-card">
         <div class="project-thumb" style="background: linear-gradient(145deg, #0d1a10, #1a3a20);">
-          <div class="project-thumb-icon">🐦</div>
+          <div class="project-thumb-icon">
+            <img src="Client Logos/GBCLogo.jpg" alt="Gariep Bird Club logo">
+          </div>
         </div>
         <div class="project-body">
           <div class="project-tags">
@@ -1066,21 +1089,23 @@
             <span class="project-tag">Multi-Page</span>
                <span class="project-tag green">Live</span>
           </div>
-          <h3>Gariep Bird Club</h3>
+          <h3><a href="https://www.gariepbirdclub.org.za/" target="_blank">Gariep Bird Club </a></h3>
           <p>A full multi-page club website including atlasing info, bird-of-the-month features, event calendars, birdlists, committee pages, and constitution documents.</p>
         </div>
       </div>
 
       <div class="project-card">
         <div class="project-thumb" style="background: linear-gradient(145deg, #0d1b2a, #1a3a5c);">
-          <div class="project-thumb-icon">🗺️</div>
+          <div class="project-thumb-icon">
+            <img src="Client Logos/HeronMAPLogo.png" alt="Heronry Map logo">
+          </div>
         </div>
         <div class="project-body">
           <div class="project-tags">
             <span class="project-tag">Web App</span>
             <span class="project-tag green">Live</span>
           </div>
-          <h3>Heronry Map</h3>
+          <h3><a href="https://heronrymap.africa/" target="_blank">Heronry Map</a></h3>
           <p>An interactive mapping application for logging and tracking heron colony sightings across Africa, complete with a gallery, login system, and data submission forms.</p>
         </div>
       </div>
@@ -1107,7 +1132,7 @@
           </div>
           <div class="av-stat-strip">
             <div class="av-stat">
-              <div class="av-stat-num">10+</div>
+              <div class="av-stat-num">3</div>
               <div class="av-stat-label">Projects</div>
             </div>
             <div class="av-stat">
