@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RDH Design — Web Design & Development</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #0e0e10;
-      --surface:  #141416;
-      --card:     #1a1a1e;
-      --border:   #26262c;
-      --accent:   #7c6aff;
-      --accent2:  #c084fc;
-      --green:    #22d3a5;
-      --text:     #b0b0be;
-      --white:    #f0f0f5;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0e0e10;
+      --surface: #141416;
+      --card: #1a1a1e;
+      --border: #26262c;
+      --accent: #7c6aff;
+      --accent2: #c084fc;
+      --green: #22d3a5;
+      --text: #b0b0be;
+      --white: #f0f0f5;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Space Grotesk', sans-serif;
@@ -32,13 +43,15 @@
     /* ── NAV ── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 1rem 5%;
-      background: rgba(14,14,16,0.88);
+      background: rgba(14, 14, 16, 0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -51,7 +64,7 @@
       height: 44px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      background: rgba(255,255,255,0.02);
+      background: rgba(255, 255, 255, 0.02);
       color: var(--white);
       cursor: pointer;
     }
@@ -104,6 +117,7 @@
       text-decoration: none;
       letter-spacing: 0.04em;
     }
+
     .logo span {
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
@@ -117,6 +131,7 @@
       gap: 2rem;
       align-items: center;
     }
+
     nav ul a {
       text-decoration: none;
       color: var(--text);
@@ -124,7 +139,10 @@
       font-weight: 500;
       transition: color 0.2s;
     }
-    nav ul a:hover { color: var(--white); }
+
+    nav ul a:hover {
+      color: var(--white);
+    }
 
     .nav-cta {
       background: linear-gradient(135deg, var(--accent), var(--accent2)) !important;
@@ -134,7 +152,10 @@
       font-weight: 600 !important;
       transition: opacity 0.2s !important;
     }
-    .nav-cta:hover { opacity: 0.85; }
+
+    .nav-cta:hover {
+      opacity: 0.85;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -152,17 +173,22 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: 10%; left: 15%;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(124,106,255,0.12) 0%, transparent 70%);
+      top: 10%;
+      left: 15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(124, 106, 255, 0.12) 0%, transparent 70%);
       pointer-events: none;
     }
+
     .hero::after {
       content: '';
       position: absolute;
-      bottom: 5%; right: 10%;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(192,132,252,0.1) 0%, transparent 70%);
+      bottom: 5%;
+      right: 10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(192, 132, 252, 0.1) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -176,8 +202,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(124,106,255,0.1);
-      border: 1px solid rgba(124,106,255,0.25);
+      background: rgba(124, 106, 255, 0.1);
+      border: 1px solid rgba(124, 106, 255, 0.25);
       color: var(--accent2);
       font-size: 0.78rem;
       font-weight: 600;
@@ -189,17 +215,21 @@
       flex-wrap: wrap;
       justify-content: center;
     }
+
     .hero-pill-dot {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 6px var(--green);
       transition: background 0.3s, box-shadow 0.3s;
     }
+
     .hero-pill-dot.unavailable {
       background: #f04f4f;
       box-shadow: 0 0 6px #f04f4f;
     }
+
     #adminTrigger {
       opacity: 0;
       font-size: 0.7rem;
@@ -210,7 +240,11 @@
       padding: 0 0.3rem;
       transition: opacity 0.2s;
     }
-    #adminTrigger:hover { opacity: 0.25; cursor: pointer; }
+
+    #adminTrigger:hover {
+      opacity: 0.25;
+      cursor: pointer;
+    }
 
     .hero h1 {
       font-family: 'Syne', sans-serif;
@@ -220,6 +254,7 @@
       color: var(--white);
       margin-bottom: 1.5rem;
     }
+
     .hero h1 .grad {
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
@@ -254,7 +289,11 @@
       display: inline-block;
       transition: transform 0.15s, opacity 0.15s;
     }
-    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
 
     .btn-outline {
       border: 1px solid var(--border);
@@ -267,7 +306,11 @@
       display: inline-block;
       transition: border-color 0.2s, color 0.2s;
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--white); }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--white);
+    }
 
     /* Tech badges */
     .tech-row {
@@ -276,6 +319,7 @@
       gap: 0.6rem;
       flex-wrap: wrap;
     }
+
     .tech-badge {
       background: var(--card);
       border: 1px solid var(--border);
@@ -296,10 +340,12 @@
       overflow: hidden;
       white-space: nowrap;
     }
+
     .ticker-inner {
       display: inline-block;
       animation: ticker-scroll 30s linear infinite;
     }
+
     .ticker-item {
       display: inline-flex;
       align-items: center;
@@ -311,15 +357,25 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-    .ticker-item span { color: var(--accent); }
+
+    .ticker-item span {
+      color: var(--accent);
+    }
 
     @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     /* ── SECTION COMMON ── */
-    section { padding: 6rem 5%; }
+    section {
+      padding: 6rem 5%;
+    }
 
     .section-label {
       font-size: 0.72rem;
@@ -346,7 +402,9 @@
     }
 
     /* ── SERVICES ── */
-    .services { background: var(--surface); }
+    .services {
+      background: var(--surface);
+    }
 
     .services-top {
       display: grid;
@@ -372,13 +430,20 @@
       transition: background 0.2s;
       cursor: default;
     }
-    .service-card:hover { background: #1e1e24; }
-    .service-card:hover .svc-icon { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+
+    .service-card:hover {
+      background: #1e1e24;
+    }
+
+    .service-card:hover .svc-icon {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    }
 
     .svc-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
-      background: rgba(124,106,255,0.1);
+      background: rgba(124, 106, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -393,6 +458,7 @@
       color: var(--white);
       margin-bottom: 0.5rem;
     }
+
     .service-card p {
       font-size: 0.85rem;
       line-height: 1.6;
@@ -401,7 +467,9 @@
     }
 
     /* ── WORK / PROJECTS ── */
-    .work { background: var(--bg); }
+    .work {
+      background: var(--bg);
+    }
 
     h3 a {
       color: var(--white);
@@ -428,7 +496,10 @@
       gap: 0.4rem;
       transition: gap 0.2s;
     }
-    .btn-link:hover { gap: 0.7rem; }
+
+    .btn-link:hover {
+      gap: 0.7rem;
+    }
 
     .work-grid {
       display: grid;
@@ -443,7 +514,11 @@
       overflow: hidden;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .project-card:hover { border-color: rgba(124,106,255,0.4); transform: translateY(-4px); }
+
+    .project-card:hover {
+      border-color: rgba(124, 106, 255, 0.4);
+      transform: translateY(-4px);
+    }
 
     .project-thumb {
       height: 180px;
@@ -454,6 +529,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .project-thumb-icon {
       position: relative;
       z-index: 1;
@@ -463,6 +539,7 @@
       width: min(80%, 220px);
       max-height: 80%;
     }
+
     .project-thumb-icon img {
       display: block;
       max-width: 100%;
@@ -470,19 +547,24 @@
       object-fit: contain;
       filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
     }
+
     .project-thumb-bg {
       position: absolute;
       inset: 0;
       opacity: 0.08;
     }
 
-    .project-body { padding: 1.5rem; }
+    .project-body {
+      padding: 1.5rem;
+    }
+
     .project-tags {
       display: flex;
       gap: 0.4rem;
       flex-wrap: wrap;
       margin-bottom: 0.8rem;
     }
+
     .project-tag {
       font-size: 0.68rem;
       font-weight: 600;
@@ -490,10 +572,14 @@
       text-transform: uppercase;
       padding: 0.2rem 0.55rem;
       border-radius: 4px;
-      background: rgba(124,106,255,0.1);
+      background: rgba(124, 106, 255, 0.1);
       color: var(--accent2);
     }
-    .project-tag.green { background: rgba(34,211,165,0.1); color: var(--green); }
+
+    .project-tag.green {
+      background: rgba(34, 211, 165, 0.1);
+      color: var(--green);
+    }
 
     .project-body h3 {
       font-family: 'Syne', sans-serif;
@@ -501,6 +587,7 @@
       color: var(--white);
       margin-bottom: 0.4rem;
     }
+
     .project-body p {
       font-size: 0.83rem;
       line-height: 1.6;
@@ -532,12 +619,15 @@
       position: relative;
       overflow: hidden;
     }
+
     .av-main::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(124,106,255,0.15), transparent 70%);
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(124, 106, 255, 0.15), transparent 70%);
     }
 
     .av-name {
@@ -547,6 +637,7 @@
       color: var(--white);
       margin-bottom: 0.3rem;
     }
+
     .av-role {
       font-size: 0.82rem;
       font-weight: 600;
@@ -555,6 +646,7 @@
       color: var(--accent);
       margin-bottom: 1.5rem;
     }
+
     .av-bio {
       font-size: 0.9rem;
       line-height: 1.7;
@@ -568,9 +660,10 @@
       gap: 0.5rem;
       margin-top: 1.5rem;
     }
+
     .av-skill {
-      background: rgba(124,106,255,0.08);
-      border: 1px solid rgba(124,106,255,0.2);
+      background: rgba(124, 106, 255, 0.08);
+      border: 1px solid rgba(124, 106, 255, 0.2);
       color: var(--text);
       font-size: 0.78rem;
       padding: 0.3rem 0.7rem;
@@ -583,13 +676,15 @@
       gap: 1rem;
       margin-top: 1.5rem;
     }
+
     .av-stat {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 0.9rem;
       text-align: center;
     }
+
     .av-stat-num {
       font-family: 'Syne', sans-serif;
       font-size: 1.6rem;
@@ -600,6 +695,7 @@
       background-clip: text;
       line-height: 1;
     }
+
     .av-stat-label {
       font-size: 0.68rem;
       font-weight: 600;
@@ -610,7 +706,9 @@
       margin-top: 0.3rem;
     }
 
-    .about-text .section-subtitle { margin-bottom: 2rem; }
+    .about-text .section-subtitle {
+      margin-bottom: 2rem;
+    }
 
     .about-list {
       list-style: none;
@@ -619,6 +717,7 @@
       gap: 1rem;
       margin-bottom: 2.5rem;
     }
+
     .about-list li {
       display: flex;
       align-items: flex-start;
@@ -627,9 +726,11 @@
       line-height: 1.55;
       color: var(--text);
     }
+
     .about-check {
-      width: 20px; height: 20px;
-      background: rgba(34,211,165,0.1);
+      width: 20px;
+      height: 20px;
+      background: rgba(34, 211, 165, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -642,7 +743,9 @@
     }
 
     /* ── PROCESS ── */
-    .process { background: var(--bg); }
+    .process {
+      background: var(--bg);
+    }
 
     .process-header {
       text-align: center;
@@ -675,8 +778,10 @@
       text-align: center;
       padding: 0 1.2rem;
     }
+
     .step-num {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
@@ -690,12 +795,14 @@
       position: relative;
       z-index: 1;
     }
+
     .step h3 {
       font-family: 'Syne', sans-serif;
       font-size: 1rem;
       color: var(--white);
       margin-bottom: 0.5rem;
     }
+
     .step p {
       font-size: 0.82rem;
       line-height: 1.55;
@@ -704,7 +811,9 @@
     }
 
     /* ── TESTIMONIALS ── */
-    .testimonials { background: var(--surface); }
+    .testimonials {
+      background: var(--surface);
+    }
 
     .testimonials-header {
       text-align: center;
@@ -727,7 +836,12 @@
       padding: 1.8rem;
     }
 
-    .t-stars { color: var(--accent2); margin-bottom: 0.8rem; font-size: 0.85rem; }
+    .t-stars {
+      color: var(--accent2);
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+    }
+
     .t-card blockquote {
       font-size: 0.88rem;
       font-style: italic;
@@ -735,9 +849,16 @@
       color: var(--text);
       margin-bottom: 1.3rem;
     }
-    .t-reviewer { display: flex; align-items: center; gap: 0.7rem; }
+
+    .t-reviewer {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
     .t-avatar {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
@@ -747,8 +868,18 @@
       align-items: center;
       justify-content: center;
     }
-    .t-name { font-weight: 600; font-size: 0.88rem; color: var(--white); }
-    .t-sub  { font-size: 0.75rem; color: var(--text); opacity: 0.55; }
+
+    .t-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--white);
+    }
+
+    .t-sub {
+      font-size: 0.75rem;
+      color: var(--text);
+      opacity: 0.55;
+    }
 
     /* ── CTA ── */
     .cta-section {
@@ -758,18 +889,32 @@
       position: relative;
       overflow: hidden;
     }
+
     .cta-section::before {
       content: '';
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse, rgba(124,106,255,0.1) 0%, transparent 70%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(124, 106, 255, 0.1) 0%, transparent 70%);
       pointer-events: none;
     }
-    .cta-inner { position: relative; z-index: 1; }
-    .cta-section .section-title { margin-bottom: 1rem; }
-    .cta-section .section-subtitle { max-width: 500px; margin: 0 auto 2.5rem; }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .cta-section .section-subtitle {
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+    }
 
     .contact-chips {
       display: flex;
@@ -778,6 +923,7 @@
       flex-wrap: wrap;
       margin-top: 2.5rem;
     }
+
     .contact-chip {
       display: flex;
       align-items: center;
@@ -792,8 +938,15 @@
       transition: border-color 0.2s, color 0.2s;
       overflow-wrap: anywhere;
     }
-    .contact-chip:hover { border-color: var(--accent); color: var(--white); }
-    .contact-chip-icon { font-size: 1rem; }
+
+    .contact-chip:hover {
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .contact-chip-icon {
+      font-size: 1rem;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -806,11 +959,16 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    footer .logo { font-size: 1.1rem; }
+
+    footer .logo {
+      font-size: 1.1rem;
+    }
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
     }
+
     .footer-links a {
       text-decoration: none;
       color: var(--text);
@@ -818,7 +976,12 @@
       opacity: 0.55;
       transition: opacity 0.2s;
     }
-    .footer-links a:hover { opacity: 1; color: var(--accent); }
+
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
     .footer-copy {
       font-size: 0.78rem;
       color: var(--text);
@@ -828,26 +991,54 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
+
     @media (max-width: 900px) {
-      .services-top { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
-      .process-steps::before { display: none; }
-      .t-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .services-top {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .t-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+      }
     }
+
     @media (max-width: 640px) {
-      section { padding: 4.5rem 5%; }
+      section {
+        padding: 4.5rem 5%;
+      }
+
       nav {
         padding: 0.9rem 5%;
         align-items: center;
         flex-wrap: wrap;
       }
+
       .nav-toggle {
         display: inline-flex;
       }
+
       nav ul {
         display: none;
         width: 100%;
@@ -856,39 +1047,47 @@
         gap: 0.35rem;
         padding-top: 0.9rem;
       }
+
       nav.nav-open ul {
         display: flex;
       }
+
       nav ul li {
         width: 100%;
       }
+
       nav ul a {
         display: block;
         width: 100%;
         padding: 0.9rem 1rem;
         border: 1px solid var(--border);
         border-radius: 10px;
-        background: rgba(255,255,255,0.02);
+        background: rgba(255, 255, 255, 0.02);
       }
+
       .nav-cta {
         text-align: center;
       }
+
       .hero {
         min-height: auto;
         padding: 7rem 5% 4rem;
       }
+
       .hero::before {
         width: 260px;
         height: 260px;
         top: 3%;
         left: -12%;
       }
+
       .hero::after {
         width: 220px;
         height: 220px;
         right: -10%;
         bottom: 2%;
       }
+
       .hero-pill {
         max-width: 100%;
         text-align: left;
@@ -896,75 +1095,102 @@
         justify-content: flex-start;
         border-radius: 18px;
       }
+
       .hero h1 {
         font-size: clamp(2.35rem, 11vw, 3.4rem);
       }
+
       .hero-sub {
         font-size: 1rem;
       }
+
       .hero-actions {
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 2.75rem;
       }
+
       .btn-primary,
       .btn-outline {
         width: 100%;
       }
+
       .tech-row {
         justify-content: flex-start;
       }
+
       .tech-badge {
         max-width: 100%;
       }
+
       .section-title {
         font-size: clamp(1.75rem, 9vw, 2.4rem);
       }
-      .work-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr; }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
       .work-header {
         align-items: flex-start;
       }
+
       .av-main {
         padding: 2rem 1.4rem;
       }
+
       .av-stat-strip {
         grid-template-columns: 1fr;
       }
+
       .step {
         padding: 0;
       }
+
       .contact-chips {
         gap: 0.75rem;
       }
+
       .contact-chip {
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
         text-align: center;
       }
+
       footer {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .footer-links {
         width: 100%;
         flex-wrap: wrap;
         gap: 1rem;
       }
+
       .service-card[style*="opacity:0.65"] {
         padding-top: 3.4rem;
       }
     }
   </style>
 </head>
+
 <body>
 
   <!-- NAV -->
   <nav id="siteNav">
     <a class="logo" href="#">RDH<span>.</span></a>
-    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteMenu" aria-label="Open navigation menu">
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteMenu"
+      aria-label="Open navigation menu">
       <span class="nav-toggle-lines"></span>
     </button>
     <ul id="siteMenu">
@@ -987,7 +1213,8 @@
         <span class="grad">Built to Perform.</span>
       </h1>
       <p class="hero-sub">
-        I'm Regan Harebottle — a front-end web developer and graphic designer crafting fast, responsive, and visually stunning digital experiences for businesses and individuals.
+        I'm Regan Harebottle — a front-end web developer and graphic designer crafting fast, responsive, and visually
+        stunning digital experiences for businesses and individuals.
       </p>
       <div class="hero-actions">
         <a href="#work" class="btn-primary">View My Work</a>
@@ -1034,13 +1261,15 @@
         <p class="section-label">What I Do</p>
         <h2 class="section-title">End-to-End<br>Web Solutions</h2>
       </div>
-      <p class="section-subtitle">From a simple landing page to a full data-driven web application — I handle the design, the code, and everything in between. No templates, no shortcuts.</p>
+      <p class="section-subtitle">From a simple landing page to a full data-driven web application — I handle the
+        design, the code, and everything in between. No templates, no shortcuts.</p>
     </div>
     <div class="services-grid">
       <div class="service-card">
         <div class="svc-icon">🎨</div>
         <h3>UI / Web Design</h3>
-        <p>Clean, modern layouts with a strong visual identity. Every design is tailored to your brand and your users.</p>
+        <p>Clean, modern layouts with a strong visual identity. Every design is tailored to your brand and your users.
+        </p>
       </div>
       <div class="service-card">
         <div class="svc-icon">💻</div>
@@ -1060,7 +1289,8 @@
       <div class="service-card">
         <div class="svc-icon">✏️</div>
         <h3>Graphic Design</h3>
-        <p>Logos, branding assets, and print-ready design. A strong visual identity that carries across every touchpoint.</p>
+        <p>Logos, branding assets, and print-ready design. A strong visual identity that carries across every
+          touchpoint.</p>
       </div>
     </div>
   </section>
@@ -1072,13 +1302,14 @@
         <p class="section-label">Selected Projects</p>
         <h2 class="section-title">Recent Work</h2>
       </div>
-      <a href="https://github.com/DesignRDH" class="btn-link" target="_blank" rel="noopener noreferrer">View GitHub →</a>
+      <a href="https://github.com/DesignRDH" class="btn-link" target="_blank" rel="noopener noreferrer">View GitHub
+        →</a>
     </div>
 
     <div class="work-grid">
       <!--Project Cards Go Below this-->
 
-  <div class="project-card">
+      <div class="project-card">
         <div class="project-thumb" style="background: linear-gradient(145deg, #220c0c, #550404);">
           <div class="project-thumb-icon">
             <img src="Client Logos/ThornTree-Logo.jpg" alt="ThornTree Academic Coaching logo">
@@ -1088,9 +1319,10 @@
           <div class="project-tags">
             <span class="project-tag">Academic Coaching Website</span>
             <span class="project-tag">Multi-Page</span>
-               <span class="project-tag green">Live</span>
+            <span class="project-tag green">Live</span>
           </div>
-          <h3><a href="https://www.thorntree-academic-coaching.co.za/" target="_blank">ThornTree Academic Coaching</a> </a></h3>
+          <h3><a href="https://www.thorntree-academic-coaching.co.za/" target="_blank">ThornTree Academic Coaching</a>
+            </a></h3>
           <p>A full multi-page academic coaching website including a course listings, gallery and news & updates.</p>
         </div>
       </div>
@@ -1107,11 +1339,12 @@
             <span class="project-tag green">Live</span>
           </div>
           <h3><a href="https://heronrymap.africa/" target="_blank">Heronry Map</a></h3>
-          <p>An interactive mapping application for logging and tracking heron colony sightings across Africa, complete with a gallery, login system, and data submission forms.</p>
+          <p>An interactive mapping application for logging and tracking heron colony sightings across Africa, complete
+            with a gallery, login system, and data submission forms.</p>
         </div>
       </div>
 
-          <div class="project-card">
+      <div class="project-card">
         <div class="project-thumb" style="background: linear-gradient(145deg, #0d1a10, #1a3a20);">
           <div class="project-thumb-icon">
             <img src="Client Logos/GBCLogo.jpg" alt="Gariep Bird Club logo">
@@ -1121,14 +1354,15 @@
           <div class="project-tags">
             <span class="project-tag">Club Website</span>
             <span class="project-tag">Multi-Page</span>
-               <span class="project-tag green">Live</span>
+            <span class="project-tag green">Live</span>
           </div>
           <h3><a href="https://www.gariepbirdclub.org.za/" target="_blank">Gariep Bird Club </a></h3>
-          <p>A full multi-page club website including atlasing info, bird-of-the-month features, event calendars, birdlists, committee pages, and constitution documents.</p>
+          <p>A full multi-page club website including atlasing info, bird-of-the-month features, event calendars,
+            birdlists, committee pages, and constitution documents.</p>
         </div>
       </div>
 
-</div>
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -1139,13 +1373,14 @@
         <div class="av-main">
           <div class="av-name">Regan Harebottle</div>
           <div class="av-role">Front-End Developer &amp; Designer</div>
-          <p class="av-bio">Based in South Africa. I build digital products that look great and work flawlessly — from concept through to deployment. I care deeply about the details.</p>
+          <p class="av-bio">Based in South Africa. I build digital products that look great and work flawlessly — from
+            concept through to deployment. I care deeply about the details.</p>
           <div class="av-skills">
             <span class="av-skill">HTML / CSS</span>
             <span class="av-skill">JavaScript</span>
             <span class="av-skill">PHP</span>
             <span class="av-skill">MySQL</span>
-           <!-- <span class="av-skill">Flutter / Dart</span> -->
+            <!-- <span class="av-skill">Flutter / Dart</span> -->
             <span class="av-skill">Responsive Design</span>
             <span class="av-skill">Graphic Design</span>
           </div>
@@ -1169,23 +1404,29 @@
       <div class="about-text">
         <p class="section-label">About Me</p>
         <h2 class="section-title">More Than a Developer — A Creative Partner</h2>
-        <p class="section-subtitle">I started RDH Design in 2025 with a clear mission: to help businesses and individuals create a digital presence they're genuinely proud of. I combine technical skill with a designer's eye to deliver work that's both functional and beautiful.</p>
+        <p class="section-subtitle">I started RDH Design in 2025 with a clear mission: to help businesses and
+          individuals create a digital presence they're genuinely proud of. I combine technical skill with a designer's
+          eye to deliver work that's both functional and beautiful.</p>
         <ul class="about-list">
           <li>
             <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Every project is custom-built.</strong> No page builders, no cookie-cutter templates — just clean, hand-coded websites built for your exact needs.</span>
+            <span><strong style="color:var(--white)">Every project is custom-built.</strong> No page builders, no
+              cookie-cutter templates — just clean, hand-coded websites built for your exact needs.</span>
           </li>
           <li>
             <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Mobile-first, always.</strong> Every website I build is fully responsive and tested on all screen sizes before delivery.</span>
+            <span><strong style="color:var(--white)">Mobile-first, always.</strong> Every website I build is fully
+              responsive and tested on all screen sizes before delivery.</span>
           </li>
           <li>
             <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Full-stack capable.</strong> From front-end design to PHP back-ends and SQL databases — I handle the entire stack.</span>
+            <span><strong style="color:var(--white)">Full-stack capable.</strong> From front-end design to PHP back-ends
+              and SQL databases — I handle the entire stack.</span>
           </li>
           <li>
             <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">You stay informed.</strong> Clear communication throughout. You'll always know where your project stands.</span>
+            <span><strong style="color:var(--white)">You stay informed.</strong> Clear communication throughout. You'll
+              always know where your project stands.</span>
           </li>
         </ul>
         <a href="#contact" class="btn-primary">Start a Project →</a>
@@ -1204,7 +1445,8 @@
       <div class="step">
         <div class="step-num">01</div>
         <h3>Discovery</h3>
-        <p>We talk about your goals, your audience, and what you need. I ask the right questions so nothing gets missed.</p>
+        <p>We talk about your goals, your audience, and what you need. I ask the right questions so nothing gets missed.
+        </p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
@@ -1233,7 +1475,9 @@
     <div class="t-grid">
       <div class="t-card">
         <div class="t-stars">★★★★★</div>
-        <blockquote>"Regan understood our needs and were open to the numerous changes we had requested"</blockquote>
+        <blockquote>"The final design was perfect for our needs.
+          The launch process was without any hitches or obstacles.
+          Regan listened to our queries, needs and paid attention to the smallest of details"</blockquote>
         <div class="t-reviewer">
           <div class="t-avatar">TT</div>
           <div>
@@ -1244,7 +1488,8 @@
       </div>
       <div class="t-card">
         <div class="t-stars">★★★★★</div>
-        <blockquote>"RDH Design took our brief and delivered something that exceeded every expectation. The site is fast, looks incredible, and our members love using it."</blockquote>
+        <blockquote>"RDH Design took our brief and delivered something that exceeded every expectation. The site is
+          fast, looks incredible, and our members love using it."</blockquote>
         <div class="t-reviewer">
           <div class="t-avatar">GBC</div>
           <div>
@@ -1255,7 +1500,9 @@
       </div>
       <div class="t-card">
         <div class="t-stars">★★★★★</div>
-        <blockquote>"RDH Design created a professional yet user-friendly website for our HeronryMAP project. The design process was totally interactive and relatively quick and at all stages of the project there was constant feedback and updates. I would definitely recommend RDH Design for your next innovative website."</blockquote>
+        <blockquote>"RDH Design created a professional yet user-friendly website for our HeronryMAP project. The design
+          process was totally interactive and relatively quick and at all stages of the project there was constant
+          feedback and updates. I would definitely recommend RDH Design for your next innovative website."</blockquote>
         <div class="t-reviewer">
           <div class="t-avatar">HMA</div>
           <div>
@@ -1272,13 +1519,15 @@
     <div class="cta-inner">
       <p class="section-label">Let's Work Together</p>
       <h2 class="section-title">Ready to Build<br>Something Great?</h2>
-      <p class="section-subtitle">Whether you have a full brief or just an idea — get in touch and let's figure out what your project needs.</p>
+      <p class="section-subtitle">Whether you have a full brief or just an idea — get in touch and let's figure out what
+        your project needs.</p>
       <a href="mailto:rdhdesign01@gmail.com" class="btn-primary">Send Me a Message</a>
       <div class="contact-chips">
         <a href="https://github.com/DesignRDH" class="contact-chip" target="_blank" rel="noopener noreferrer">
           <span class="contact-chip-icon">💻</span> GitHub — DesignRDH
         </a>
-        <a href="https://www.linkedin.com/in/regan-harebottle-34a8b4262/" class="contact-chip" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/regan-harebottle-34a8b4262/" class="contact-chip" target="_blank"
+          rel="noopener noreferrer">
           <span class="contact-chip-icon">🔗</span> LinkedIn
         </a>
         <a href="mailto:rdhdesign01@gmail.com" class="contact-chip">
@@ -1297,7 +1546,8 @@
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
-    <span class="footer-copy">&copy; 2026 RDH Design — Regan Harebottle<button id="adminTrigger" onclick="toggleAvailability()" title="">&#8226;</button></span>
+    <span class="footer-copy">&copy; 2026 RDH Design — Regan Harebottle<button id="adminTrigger"
+        onclick="toggleAvailability()" title="">&#8226;</button></span>
   </footer>
 
   <script>
@@ -1324,20 +1574,20 @@
       fetch('status.php')
         .then(function (r) { return r.json(); })
         .then(function (data) { applyAvailability(data.available); })
-        .catch(function () {}); // silently ignore if no PHP server (local preview)
+        .catch(function () { }); // silently ignore if no PHP server (local preview)
     });
 
     function applyAvailability(available) {
-      var dot  = document.getElementById('availDot');
+      var dot = document.getElementById('availDot');
       var text = document.getElementById('availText');
       dot.classList.toggle('unavailable', !available);
       text.textContent = available ? 'Available for new projects' : 'Not currently available';
     }
 
     function toggleAvailability() {
-      var dot       = document.getElementById('availDot');
-      var newState  = dot.classList.contains('unavailable'); // toggling to available
-      var password  = prompt('Enter your admin password to update availability:');
+      var dot = document.getElementById('availDot');
+      var newState = dot.classList.contains('unavailable'); // toggling to available
+      var password = prompt('Enter your admin password to update availability:');
       if (!password) return;
 
       fetch('status.php', {
@@ -1356,4 +1606,5 @@
     }
   </script>
 </body>
+
 </html>
