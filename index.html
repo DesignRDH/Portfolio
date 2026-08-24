@@ -18,13 +18,13 @@
     }
 
     :root {
-      --bg: #0e0e10;
-      --surface: #141416;
-      --card: #1a1a1e;
-      --border: #26262c;
-      --accent: #7c6aff;
-      --accent2: #c084fc;
-      --green: #22d3a5;
+      --bg: #212020;
+      --surface: #212020;
+      --card: #191919;
+      --border: #333336;
+      --accent: #5761c8;
+      --accent2: #0f4ca1;
+      --green: #3ed3ab;
       --text: #b0b0be;
       --white: #f0f0f5;
     }
@@ -742,6 +742,43 @@
       font-weight: 700;
     }
 
+    /*AVATAR */ 
+    .av-header {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+.av-photo {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+overflow: hidden;
+flex-shrink: 0;
+border: 3px solid var(--accent);
+box-shadow: 0 0 20px rgba(124, 106, 255, 0.3);
+}
+
+.av-photo img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+
+.av-header-text {
+flex: 1;
+}
+
+.av-header-text .av-name {
+margin-bottom: 0.3rem;
+}
+
+.av-header-text .av-role {
+margin-bottom: 0;
+}
+
     /* ── PROCESS ── */
     .process {
       background: var(--bg);
@@ -1307,7 +1344,7 @@
 
     <div class="work-grid">
       <!--Project Cards Go Below this-->
-<div class="project-card">
+      <div class="project-card">
         <div class="project-thumb" style="background: linear-gradient(145deg, #525252, #477243);">
           <div class="project-thumb-icon">
             <img src="Client Logos/HSDS-Logo.jpg" alt="ThornTree Academic Coaching logo">
@@ -1321,7 +1358,8 @@
           </div>
           <h3><a href="https://healthysmileskimberley.co.za/" target="_blank">Healthy Smiles Dentist Studio</a>
             </a></h3>
-          <p>A modern one page mobile friendly web page for a dentist studio with 3 forms of contacts built in for easy appointments.</p>
+          <p>A modern one page mobile friendly web page for a dentist studio with 3 forms of contacts built in for easy
+            appointments.</p>
         </div>
       </div>
 
@@ -1381,75 +1419,78 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-grid">
-
-      <div class="about-visual">
-        <div class="av-main">
-          <div class="av-name">Regan Harebottle</div>
-          <div class="av-role">Front-End Developer &amp; Designer</div>
-          <p class="av-bio">Based in South Africa. I build digital products that look great and work flawlessly — from
-            concept through to deployment. I care deeply about the details.</p>
-          <div class="av-skills">
-            <span class="av-skill">HTML / CSS</span>
-            <span class="av-skill">JavaScript</span>
-            <span class="av-skill">PHP</span>
-            <span class="av-skill">MySQL</span>
-            <!-- <span class="av-skill">Flutter / Dart</span> -->
-            <span class="av-skill">Responsive Design</span>
-            <span class="av-skill">Graphic Design</span>
-          </div>
-          <div class="av-stat-strip">
-            <div class="av-stat">
-              <div class="av-stat-num">4</div>
-              <div class="av-stat-label">Projects</div>
-            </div>
-            <div class="av-stat">
-              <div class="av-stat-num">2025</div>
-              <div class="av-stat-label">Founded</div>
-            </div>
-            <div class="av-stat">
-              <div class="av-stat-num">100%</div>
-              <div class="av-stat-label">Responsive</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-text">
-        <p class="section-label">About Me</p>
-        <h2 class="section-title">More Than a Developer — A Creative Partner</h2>
-        <p class="section-subtitle">I started RDH Design in 2025 with a clear mission: to help businesses and
-          individuals create a digital presence they're genuinely proud of. I combine technical skill with a designer's
-          eye to deliver work that's both functional and beautiful.</p>
-        <ul class="about-list">
-          <li>
-            <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Every project is custom-built.</strong> No page builders, no
-              cookie-cutter templates — just clean, hand-coded websites built for your exact needs.</span>
-          </li>
-          <li>
-            <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Mobile-first, always.</strong> Every website I build is fully
-              responsive and tested on all screen sizes before delivery.</span>
-          </li>
-          <li>
-            <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">Full-stack capable.</strong> From front-end design to PHP back-ends
-              and SQL databases — I handle the entire stack.</span>
-          </li>
-          <li>
-            <div class="about-check">✓</div>
-            <span><strong style="color:var(--white)">You stay informed.</strong> Clear communication throughout. You'll
-              always know where your project stands.</span>
-          </li>
-        </ul>
-        <a href="#contact" class="btn-primary">Start a Project →</a>
-      </div>
-
-    </div>
-  </section>
+<!-- ABOUT -->
+<section class="about" id="about">
+<div class="about-grid">
+<div class="about-visual">
+<div class="av-main">
+<div class="av-header">
+<div class="av-photo">
+<img src="profile-pictuire.jpg" alt="Regan Harebottle" />
+</div>
+<div class="av-header-text">
+<div class="av-name">Regan Harebottle</div>
+<div class="av-role">Front-End Developer &amp; Designer</div>
+</div>
+</div>
+<p class="av-bio">Based in South Africa. I build digital products that look great and work flawlessly — from
+concept through to deployment. I care deeply about the details.</p>
+<div class="av-skills">
+<span class="av-skill">HTML / CSS</span>
+<span class="av-skill">JavaScript</span>
+<span class="av-skill">PHP</span>
+<span class="av-skill">MySQL</span>
+<span class="av-skill">Responsive Design</span>
+<span class="av-skill">Graphic Design</span>
+</div>
+<div class="av-stat-strip">
+<div class="av-stat">
+<div class="av-stat-num">4</div>
+<div class="av-stat-label">Projects</div>
+</div>
+<div class="av-stat">
+<div class="av-stat-num">2025</div>
+<div class="av-stat-label">Founded</div>
+</div>
+<div class="av-stat">
+<div class="av-stat-num">100%</div>
+<div class="av-stat-label">Responsive</div>
+</div>
+</div>
+</div>
+</div>
+<div class="about-text">
+<p class="section-label">About Me</p>
+<h2 class="section-title">More Than a Developer — A Creative Partner</h2>
+<p class="section-subtitle">I started RDH Design in 2025 with a clear mission: to help businesses and
+individuals create a digital presence they're genuinely proud of. I combine technical skill with a designer's
+eye to deliver work that's both functional and beautiful.</p>
+<ul class="about-list">
+<li>
+<div class="about-check">✓</div>
+<span><strong style="color:var(--white)">Every project is custom-built.</strong> No page builders, no
+cookie-cutter templates — just clean, hand-coded websites built for your exact needs.</span>
+</li>
+<li>
+<div class="about-check">✓</div>
+<span><strong style="color:var(--white)">Mobile-first, always.</strong> Every website I build is fully
+responsive and tested on all screen sizes before delivery.</span>
+</li>
+<li>
+<div class="about-check">✓</div>
+<span><strong style="color:var(--white)">Full-stack capable.</strong> From front-end design to PHP back-ends
+and SQL databases — I handle the entire stack.</span>
+</li>
+<li>
+<div class="about-check">✓</div>
+<span><strong style="color:var(--white)">You stay informed.</strong> Clear communication throughout. You'll
+always know where your project stands.</span>
+</li>
+</ul>
+<a href="#contact" class="btn-primary">Start a Project →</a>
+</div>
+</div>
+</section>
 
   <!-- PROCESS -->
   <section class="process">
@@ -1486,11 +1527,10 @@
   <section class="testimonials">
     <div class="testimonials-header">
       <p class="section-label">Kind Words</p>
-      <h2 class="section-title">What Clients Say</h2>
+      <h2 class="section-title">What Clients Have to Say</h2>
     </div>
     <div class="t-grid">
       <div class="t-card">
-        <div class="t-stars">★★★★★</div>
         <blockquote>"The final design was perfect for our needs.
           The launch process was without any hitches or obstacles.
           Regan listened to our queries, needs and paid attention to the smallest of details"</blockquote>
@@ -1503,7 +1543,6 @@
         </div>
       </div>
       <div class="t-card">
-        <div class="t-stars">★★★★★</div>
         <blockquote>"RDH Design took our brief and delivered something that exceeded every expectation. The site is
           fast, looks incredible, and our members love using it."</blockquote>
         <div class="t-reviewer">
@@ -1515,7 +1554,6 @@
         </div>
       </div>
       <div class="t-card">
-        <div class="t-stars">★★★★★</div>
         <blockquote>"RDH Design created a professional yet user-friendly website for our HeronryMAP project. The design
           process was totally interactive and relatively quick and at all stages of the project there was constant
           feedback and updates. I would definitely recommend RDH Design for your next innovative website."</blockquote>
