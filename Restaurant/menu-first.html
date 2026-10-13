@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Restaurant Name] — Fresh, Local, Made With Care</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#fdfaf5;
+    color:#2a2620; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .serif { font-family:'Fraunces',serif; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height:92vh; display:flex; flex-direction:column;
+    justify-content:space-between; padding:34px 48px 56px;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(214,168,90,.14), transparent 50%),
+      radial-gradient(circle at 15% 80%, rgba(120,150,90,.12), transparent 50%),
+      #fdfaf5;
+    position:relative;
+  }
+  .nav {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.82rem; color:#7a7265;
+  }
+  .nav .logo {
+    font-family:'Fraunces',serif; font-size:1.35rem;
+    color:#2a2620; font-weight:500; letter-spacing:-.3px;
+  }
+  .nav .phone { font-weight:400; }
+
+  .hero-content { max-width:820px; }
+  .hero-content .tag {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#8a7a4a; font-weight:500; margin-bottom:28px;
+  }
+  .hero-content .tag::before {
+    content:''; width:28px; height:1px; background:#8a7a4a;
+  }
+  .hero-content h1 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(2.8rem,7vw,5.4rem); line-height:1.04;
+    letter-spacing:-1.5px; color:#2a2620;
+  }
+  .hero-content h1 em { font-style:italic; color:#b8863a; font-weight:400; }
+  .hero-content p {
+    margin-top:28px; font-size:clamp(1rem,1.8vw,1.15rem);
+    color:#6b6355; max-width:500px; font-weight:300;
+  }
+  .hero-actions {
+    margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn-menu {
+    background:#2a2620; color:#fdfaf5; padding:18px 44px;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:999px;
+    transition:transform .25s, box-shadow .25s;
+    display:inline-block;
+  }
+  .btn-menu:hover {
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(42,38,32,.2);
+  }
+  .btn-soft {
+    background:transparent; border:1px solid #d8d0c0; color:#2a2620;
+    padding:18px 44px; font-size:.78rem; font-weight:500;
+    letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+    border-radius:999px; transition:border-color .25s, background .25s;
+    display:inline-block;
+  }
+  .btn-soft:hover { border-color:#2a2620; background:#fff; }
+
+  .hero-foot {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:24px; padding-top:32px;
+    border-top:1px solid rgba(42,38,32,.1);
+    font-size:.82rem; color:#7a7265; font-weight:300;
+  }
+  .hero-foot strong { display:block; color:#2a2620; font-weight:500; margin-bottom:4px; font-size:.9rem; }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding:110px 48px; }
+  .container { max-width:1080px; margin:0 auto; }
+  .label {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#b8863a; font-weight:500; margin-bottom:20px;
+  }
+  .label::before { content:''; width:24px; height:1px; background:#b8863a; }
+  h2 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(2rem,4.5vw,3rem); line-height:1.12;
+    letter-spacing:-1px; color:#2a2620; margin-bottom:20px;
+  }
+  h2 em { font-style:italic; color:#b8863a; font-weight:400; }
+  .sub { color:#6b6355; font-weight:300; font-size:1.05rem; max-width:600px; }
+
+  /* ---- INTRO ---- */
+  .intro { padding-bottom:80px; }
+  .intro-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:60px; align-items:center; }
+  .intro-text p { color:#6b6355; font-weight:300; margin-bottom:16px; }
+
+  /* ---- MENU ---- */
+  .menu { background:#f6f1e6; border-top:1px solid #ebe3d2; border-bottom:1px solid #ebe3d2; }
+  .menu-head { text-align:center; margin-bottom:60px; }
+  .menu-head .label { justify-content:center; }
+  .menu-head .label::before { display:none; }
+  .menu-categories {
+    display:grid; grid-template-columns:1fr 1fr; gap:60px;
+    max-width:960px; margin:0 auto;
+  }
+  .menu-cat h3 {
+    font-family:'Fraunces',serif; font-size:1.6rem; font-weight:500;
+    color:#2a2620; margin-bottom:26px; letter-spacing:-.3px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .menu-cat h3::after {
+    content:''; flex:1; height:1px; background:#d8ceb8;
+  }
+  .menu-item {
+    padding:16px 0; border-bottom:1px solid #ebe3d2;
+  }
+  .menu-item:last-child { border-bottom:none; }
+  .menu-item-top {
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  }
+  .menu-item .name {
+    font-family:'Fraunces',serif; font-size:1.1rem;
+    color:#2a2620; font-weight:500;
+  }
+  .menu-item .price {
+    font-family:'Fraunces',serif; font-size:1.05rem;
+    color:#b8863a; font-weight:500; white-space:nowrap;
+  }
+  .menu-item .desc {
+    font-size:.85rem; color:#7a7265; font-weight:300;
+    margin-top:4px; line-height:1.5;
+  }
+  .menu-cta { text-align:center; margin-top:60px; }
+
+  /* ---- GALLERY ---- */
+  .gallery-grid {
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:14px;
+    max-width:1080px; margin:0 auto;
+    height:520px;
+  }
+  .gal {
+    border-radius:12px; display:flex;
+    align-items:center; justify-content:center;
+    font-size:2.8rem; overflow:hidden;
+  }
+  .gal:first-child { grid-row:1 / 3; }
+  .gal:nth-child(1) { background:linear-gradient(145deg,#e8c88a,#d4a860); }
+  .gal:nth-child(2) { background:linear-gradient(145deg,#d8e4c8,#a8c088); }
+  .gal:nth-child(3) { background:linear-gradient(145deg,#f0d8d0,#e0b0a8); }
+  .gal:nth-child(4) { background:linear-gradient(145deg,#e8dcc8,#d0bca0); }
+  .gal:nth-child(5) { background:linear-gradient(145deg,#d8e0d0,#b0c0a8); }
+
+  /* ---- VALUES ---- */
+  .values { background:#f6f1e6; border-top:1px solid #ebe3d2; }
+  .values-head { text-align:center; margin-bottom:56px; }
+  .values-head .label { justify-content:center; }
+  .values-head .label::before { display:none; }
+  .values-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:44px; max-width:1000px; margin:0 auto;
+  }
+  .value {
+    text-align:center;
+  }
+  .value-icon {
+    width:56px; height:56px; border-radius:50%;
+    background:#ebe3d2; color:#b8863a;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px; font-size:1.4rem;
+  }
+  .value h3 {
+    font-family:'Fraunces',serif; font-size:1.25rem;
+    font-weight:500; color:#2a2620; margin-bottom:10px;
+  }
+  .value p { font-size:.92rem; color:#6b6355; font-weight:300; }
+
+  /* ---- INFO ---- */
+  .info-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:40px; max-width:1080px; margin:0 auto;
+  }
+  .info-block h3 {
+    font-family:'Fraunces',serif; font-size:1.2rem;
+    color:#b8863a; font-weight:500; margin-bottom:14px;
+  }
+  .info-block p { color:#6b6355; font-weight:300; font-size:.95rem; }
+
+  /* ---- CTA ---- */
+  .cta {
+    background:
+      radial-gradient(circle at 70% 40%, rgba(214,168,90,.16), transparent 55%),
+      #2a2620;
+    text-align:center; color:#fdfaf5;
+  }
+  .cta h2 { color:#fdfaf5; }
+  .cta h2 em { color:#e8c88a; }
+  .cta p { color:#b8b0a0; margin:0 auto 40px; max-width:480px; font-weight:300; }
+  .cta .btn-menu {
+    background:#e8c88a; color:#2a2620;
+  }
+  .cta .btn-menu:hover { background:#f0d8a0; }
+  .cta .btn-soft {
+    border-color:rgba(255,255,255,.2); color:#fdfaf5;
+  }
+  .cta .btn-soft:hover { border-color:#e8c88a; background:transparent; }
+  .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#2a2620; border-top:1px solid #3a352e;
+    text-align:center; padding:44px 48px; font-size:.82rem;
+    color:#9a9285; font-weight:300;
+  }
+  footer .brand {
+    font-family:'Fraunces',serif; font-size:1.2rem;
+    color:#fdfaf5; margin-bottom:10px; font-weight:500;
+  }
+  footer small { display:block; margin-top:20px; color:#6a6258; font-size:.72rem; }
+
+  @media(max-width:800px){
+    section { padding:80px 24px; }
+    .hero { padding:26px 24px 44px; min-height:auto; }
+    .intro-grid { grid-template-columns:1fr; gap:32px; }
+    .menu-categories { grid-template-columns:1fr; gap:44px; }
+    .gallery-grid {
+      grid-template-columns:1fr 1fr;
+      grid-template-rows:auto;
+      height:auto;
+    }
+    .gal { aspect-ratio:1; }
+    .gal:first-child { grid-row:auto; grid-column:1 / -1; aspect-ratio:2/1; }
+    .values-grid { grid-template-columns:1fr; gap:32px; }
+    .info-grid { grid-template-columns:1fr; gap:32px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="nav">
+    <span class="logo">[Restaurant Name]</span>
+    <span class="logo"><a href="index.html">Back to Showcase</a></span>
+    <span class="phone">☎ [000 000 0000]</span>
+  </div>
+
+  <div class="hero-content">
+    <span class="tag">Kitchen · Café · [City]</span>
+    <h1>Fresh food, made with <em>real care.</em></h1>
+    <p>Locally sourced ingredients, a menu that changes with the seasons, and a kitchen that treats every plate like it matters.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-menu">View Our Menu</a>
+      <a href="#visit" class="btn-soft">Visit Us</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div>
+      <strong>Open Daily</strong>
+      Mon – Sat: 07:00 – 16:00
+    </div>
+    <div>
+      <strong>[Full Address]</strong>
+      [City, Postal Code]
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="container intro-grid">
+    <div>
+      <span class="label">Our Kitchen</span>
+      <h2>Honest food, <em>done properly.</em></h2>
+    </div>
+    <div class="intro-text">
+      <p>We believe good food shouldn't be complicated. Fresh ingredients, simple technique, and a kitchen that cares — that's the whole philosophy.</p>
+      <p>Whether it's a slow morning coffee, a long lunch, or a quick bite between meetings, [Restaurant Name] is built around food worth slowing down for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu-head">
+      <span class="label">The Menu</span>
+      <h2>What's <em>cooking.</em></h2>
+      <p class="sub" style="margin:20px auto 0;">Our menu changes with the seasons — here's a taste of what's on right now.</p>
+    </div>
+
+    <div class="menu-categories">
+
+      <!-- BREAKFAST -->
+      <div class="menu-cat">
+        <h3>Breakfast</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+      </div>
+
+      <!-- LUNCH -->
+      <div class="menu-cat">
+        <h3>Lunch</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-cat">
+        <h3>Coffee &amp; Drinks</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+      </div>
+
+      <!-- SWEETS -->
+      <div class="menu-cat">
+        <h3>Sweets</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="menu-cta">
+      <a href="mailto:[EMAIL]?subject=Full%20Menu%20Enquiry" class="btn-soft">Download Full Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="container">
+    <div class="values-head" style="text-align:center;margin-bottom:56px;">
+      <span class="label" style="justify-content:center;"></span>
+      <h2>Made fresh, <em>every day.</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal">🥐</div>
+      <div class="gal">🥗</div>
+      <div class="gal">☕</div>
+      <div class="gal">🍰</div>
+      <div class="gal">🥑</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="values-head">
+      <span class="label">Why Us</span>
+      <h2>A kitchen that <em>cares.</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value">
+        <div class="value-icon">🌱</div>
+        <h3>Locally Sourced</h3>
+        <p>We work with local farmers and suppliers to bring you the freshest ingredients possible.</p>
+      </div>
+      <div class="value">
+        <div class="value-icon">👨‍🍳</div>
+        <h3>Made by Hand</h3>
+        <p>Everything is made fresh in-house — no shortcuts, no frozen shortcuts, no compromises.</p>
+      </div>
+      <div class="value">
+        <div class="value-icon">☕</div>
+        <h3>A Place to Slow Down</h3>
+        <p>Good food, good coffee, and a spot to sit, stay, and enjoy. That's the whole idea.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="visit">
+  <div class="container">
+    <div class="values-head" style="text-align:center;margin-bottom:56px;">
+      <span class="label" style="justify-content:center;">Visit</span>
+      <h2>Come <em>see us.</em></h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>Monday – Friday: 07:00 – 16:00<br>
+           Saturday: 08:00 – 15:00<br>
+           Sunday: Closed</p>
+      </div>
+      <div class="info-block">
+        <h3>Find Us</h3>
+        <p>[Full Address]<br>
+           [City, Postal Code]<br>
+           [Landmark or area hint]</p>
+      </div>
+      <div class="info-block">
+        <h3>Contact</h3>
+        <p>☎ [000 000 0000]<br>
+           ✉ [email@restaurant.com]<br>
+           Follow us on [Social]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <span class="label" style="justify-content:center;color:#e8c88a;">Visit</span>
+    <h2>Come hungry. <em>Leave happy.</em></h2>
+    <p>Pop in for breakfast, lunch, or a proper cup of coffee — we'd love to see you.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/[YOUR_NUMBER]?text=Hi%2C%20I%27d%20like%20to%20book%20a%20table." class="btn-menu" target="_blank" rel="noopener">Book a Table</a>
+      <a href="mailto:[EMAIL]?subject=Enquiry" class="btn-soft">Send an Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Restaurant Name]</div>
+  <div>[Full Address] · [City] · [Postal Code]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+</body>
+</html>

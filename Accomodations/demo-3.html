@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Property Name] — A Modern Stay</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#fbfaf8;
+    color:#1c1c1a; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .serif { font-family:'Fraunces',serif; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:space-between; padding:36px 48px 56px;
+    background:linear-gradient(160deg,#f4f1ec 0%,#e8e4dc 100%);
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-200px; right:-150px;
+    width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle,rgba(122,140,120,.18),transparent 70%);
+  }
+  .hero::after {
+    content:''; position:absolute; bottom:-180px; left:-120px;
+    width:480px; height:480px; border-radius:50%;
+    background:radial-gradient(circle,rgba(180,150,120,.15),transparent 70%);
+  }
+  .hero > * { position:relative; z-index:1; }
+
+  .nav {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.82rem; letter-spacing:.5px; color:#6b6b66;
+  }
+  .nav .logo {
+    font-family:'Fraunces',serif; font-size:1.15rem;
+    font-weight:500; color:#1c1c1a; letter-spacing:-.3px;
+  }
+  .nav .phone { font-weight:400; }
+
+  .hero-content { max-width:820px; }
+  .hero-content .tag {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase;
+    color:#7a8c78; font-weight:500; margin-bottom:32px;
+  }
+  .hero-content .tag::before {
+    content:''; width:24px; height:1px; background:#7a8c78;
+  }
+  .hero-content h1 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(2.6rem,7vw,5.2rem); line-height:1.05;
+    letter-spacing:-1.5px; color:#1c1c1a;
+  }
+  .hero-content h1 em {
+    font-style:italic; font-weight:400; color:#7a8c78;
+  }
+  .hero-content p {
+    margin-top:32px; font-size:clamp(1rem,1.8vw,1.15rem);
+    color:#5a5a55; max-width:520px; font-weight:300;
+  }
+
+  .hero-foot {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:24px; padding-top:40px;
+    border-top:1px solid rgba(0,0,0,.08);
+  }
+  .hero-foot .meta { font-size:.85rem; color:#8a8a85; font-weight:300; }
+  .hero-foot .meta strong {
+    display:block; color:#1c1c1a; font-weight:500;
+    font-size:.95rem; margin-bottom:4px;
+  }
+
+  /* ---- INTRO ---- */
+  .intro {
+    max-width:760px; margin:0 auto; padding:130px 48px 100px;
+    text-align:center;
+  }
+  .intro .kicker {
+    font-size:.75rem; letter-spacing:2.5px; text-transform:uppercase;
+    color:#7a8c78; font-weight:500; margin-bottom:24px;
+  }
+  .intro h2 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(1.8rem,4.5vw,2.8rem); line-height:1.2;
+    letter-spacing:-.8px; margin-bottom:28px; color:#1c1c1a;
+  }
+  .intro h2 em { font-style:italic; color:#7a8c78; }
+  .intro p { color:#5a5a55; font-size:1.08rem; font-weight:300; }
+
+  /* ---- FEATURES ---- */
+  .features {
+    max-width:1080px; margin:0 auto; padding:0 48px 130px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:56px;
+  }
+  .feature .num {
+    font-family:'Fraunces',serif; font-size:1.1rem;
+    color:#7a8c78; font-weight:400; margin-bottom:20px;
+    letter-spacing:1px;
+  }
+  .feature h3 {
+    font-family:'Fraunces',serif; font-weight:400;
+    font-size:1.35rem; letter-spacing:-.3px;
+    margin-bottom:14px; color:#1c1c1a;
+  }
+  .feature p { color:#5a5a55; font-size:.98rem; font-weight:300; }
+
+  /* ---- QUOTE ---- */
+  .quote {
+    background:#1c1c1a; color:#f4f1ec; padding:120px 48px;
+    text-align:center;
+  }
+  .quote blockquote {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(1.5rem,4vw,2.6rem); line-height:1.3;
+    letter-spacing:-.5px; max-width:820px; margin:0 auto 28px;
+  }
+  .quote blockquote em { font-style:italic; color:#a8b8a4; }
+  .quote cite {
+    font-style:normal; font-size:.78rem; letter-spacing:2.5px;
+    text-transform:uppercase; color:#8a8a85; font-weight:400;
+  }
+
+  /* ---- RATES ---- */
+  .rates { max-width:600px; margin:0 auto; padding:130px 48px; }
+  .rates .kicker {
+    font-size:.75rem; letter-spacing:2.5px; text-transform:uppercase;
+    color:#7a8c78; font-weight:500; margin-bottom:20px; text-align:center;
+  }
+  .rates h2 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(1.6rem,4vw,2.4rem); letter-spacing:-.8px;
+    text-align:center; margin-bottom:52px; color:#1c1c1a;
+  }
+  .rates h2 em { font-style:italic; color:#7a8c78; }
+  .rate-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 0; border-bottom:1px solid #e8e4dc;
+  }
+  .rate-row .chan { color:#5a5a55; font-size:1rem; font-weight:300; }
+  .rate-row .price {
+    font-family:'Fraunces',serif; font-size:1.15rem;
+    font-weight:400; color:#1c1c1a;
+  }
+  .rate-row.best { border-bottom:1px solid #7a8c78; }
+  .rate-row.best .chan { color:#1c1c1a; font-weight:500; }
+  .rate-row.best .price { color:#7a8c78; }
+  .rates .note {
+    text-align:center; margin-top:32px; color:#8a8a85;
+    font-size:.9rem; font-weight:300;
+  }
+
+  /* ---- CTA ---- */
+  .cta {
+    background:linear-gradient(160deg,#e8e4dc 0%,#f4f1ec 100%);
+    text-align:center; padding:130px 48px;
+  }
+  .cta h2 {
+    font-family:'Fraunces',serif; font-weight:300;
+    font-size:clamp(1.8rem,4.5vw,3rem); line-height:1.15;
+    letter-spacing:-1px; margin-bottom:40px; color:#1c1c1a;
+  }
+  .cta h2 em { font-style:italic; color:#7a8c78; }
+  .cta a {
+    display:inline-block; background:#1c1c1a; color:#f4f1ec;
+    padding:20px 52px; font-size:.82rem; font-weight:500;
+    letter-spacing:1.5px; text-transform:uppercase;
+    text-decoration:none; border-radius:999px;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .cta a:hover {
+    transform:translateY(-3px);
+    box-shadow:0 16px 40px rgba(28,28,26,.2);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#1c1c1a; color:#8a8a85; text-align:center;
+    padding:56px 48px; font-size:.85rem; font-weight:300;
+  }
+  footer .brand {
+    font-family:'Fraunces',serif; color:#f4f1ec;
+    font-size:1.2rem; font-weight:400; margin-bottom:14px;
+    letter-spacing:-.3px;
+  }
+  footer small { display:block; margin-top:24px; color:#5a5a55; font-size:.72rem; }
+
+  @media(max-width:700px){
+    .hero { padding:28px 24px 44px; }
+    .intro, .features, .rates, .cta { padding-left:24px; padding-right:24px; }
+    .intro { padding-top:90px; padding-bottom:70px; }
+    .features { padding-bottom:90px; gap:40px; }
+    .rates { padding-top:90px; padding-bottom:90px; }
+    .cta { padding-top:90px; padding-bottom:90px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="nav">
+    <span class="logo">[Property Name]</span>
+    <span class="logo"><a href="index.html">Back to Showcase</a> </span>
+    <span class="phone">☎ [078 000 0000]</span>
+  </div>
+
+  <div class="hero-content">
+    <span class="tag">★★★★★ Guest Rated · [Kimberley]</span>
+    <h1>A quiet place to <em>rest, reset,</em> and feel at home.</h1>
+    <p>Thoughtfully kept rooms, honest rates, and a location that puts you right where you need to be.</p>
+  </div>
+
+  <div class="hero-foot">
+    <div class="meta">
+      <strong>[Property Name]</strong>
+      [Full Address]
+    </div>
+    <div class="meta">
+      <strong>From R[651] / night</strong>
+      Book direct for the best rate
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="kicker">About Us</div>
+  <h2>Simple comfort, <em>done well.</em></h2>
+  <p>No fuss, no hidden fees — just a clean, comfortable stay with everything you need and nothing you don't.</p>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature">
+    <div class="num">01</div>
+    <h3>Prime Location</h3>
+    <p>Close to [landmarks, CBD, main roads] — easy to find and easy to get around.</p>
+  </div>
+  <div class="feature">
+    <div class="num">02</div>
+    <h3>Honest Rates</h3>
+    <p>Book direct and skip the markups. Same stay, better price, every time.</p>
+  </div>
+  <div class="feature">
+    <div class="num">03</div>
+    <h3>Real Comfort</h3>
+    <p>Clean rooms, comfy beds, and a welcome that feels like home.</p>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote">
+  <blockquote>"Exactly what we needed — <em>clean, quiet,</em> and close to everything."</blockquote>
+  <cite>— A past guest</cite>
+</div>
+
+<!-- RATES -->
+<div class="rates">
+  <div class="kicker">Book Direct</div>
+  <h2>Always the <em>best rate.</em></h2>
+  <div class="rate-row">
+    <span class="chan">Booking.com</span>
+    <span class="price">R[651]</span>
+  </div>
+  <div class="rate-row">
+    <span class="chan">Agoda</span>
+    <span class="price">R[700]</span>
+  </div>
+  <div class="rate-row best">
+    <span class="chan">Book direct with us</span>
+    <span class="price">Best rate</span>
+  </div>
+  <p class="note">Message or call us directly for our best available price.</p>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Ready when <em>you are.</em></h2>
+  <a href="https://wa.me/[PHONE]">Book on WhatsApp</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Property Name]</div>
+  <div>[Full Address] · [City] · [Postal Code]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+</body>
+</html>

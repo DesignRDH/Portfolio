@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Photographer Name] — Stories in the Dark</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#0a0a0a;
+    color:#e8e6e2; line-height:1.7; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif { font-family:'EB Garamond',serif; }
+
+  /* ---- NAV ---- */
+  .nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 48px;
+    background:linear-gradient(to bottom, rgba(10,10,10,.9), transparent);
+    font-size:.75rem; letter-spacing:2px; text-transform:uppercase;
+    color:#8a8278;
+  }
+  .nav .logo {
+    font-family:'EB Garamond',serif; font-size:1.35rem;
+    color:#e8e6e2; letter-spacing:.5px; text-transform:none;
+  }
+  .nav ul { list-style:none; display:flex; gap:36px; }
+  .nav ul a {
+    color:#8a8278; text-decoration:none; transition:color .2s;
+  }
+  .nav ul a:hover { color:#e8e6e2; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height:100vh; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; padding:120px 48px 80px;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 25% 35%, rgba(200,120,60,.15), transparent 45%),
+      radial-gradient(circle at 75% 65%, rgba(80,100,140,.15), transparent 45%),
+      #0a0a0a;
+  }
+  .hero-bg::after {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 40%, #0a0a0a 100%);
+  }
+  .hero-inner {
+    position:relative; z-index:1;
+    text-align:center; max-width:880px;
+  }
+  .hero .eyebrow {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:44px;
+    display:inline-flex; align-items:center; gap:14px;
+  }
+  .hero .eyebrow::before,
+  .hero .eyebrow::after {
+    content:''; width:28px; height:1px; background:#8a8278;
+  }
+  .hero h1 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(3rem,9vw,7rem); line-height:1;
+    letter-spacing:-2px; color:#e8e6e2;
+  }
+  .hero h1 em { font-style:italic; color:#c8a878; }
+  .hero p {
+    margin:36px auto 0; max-width:520px;
+    color:#8a8278; font-weight:300; font-size:1.02rem;
+    line-height:1.8;
+  }
+  .hero-scroll {
+    position:absolute; bottom:40px; left:50%;
+    transform:translateX(-50%);
+    font-size:.65rem; letter-spacing:4px; text-transform:uppercase;
+    color:#5a554d;
+  }
+  .hero-scroll span {
+    display:block; width:1px; height:40px;
+    background:linear-gradient(to bottom,#5a554d,transparent);
+    margin:12px auto 0;
+    animation:scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100% { opacity:.4; }
+    50% { opacity:1; }
+  }
+
+  /* ---- INTRO ---- */
+  .intro {
+    padding:120px 48px;
+    max-width:900px; margin:0 auto; text-align:center;
+  }
+  .intro .label {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:32px;
+  }
+  .intro h2 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(1.8rem,4vw,2.8rem); line-height:1.2;
+    letter-spacing:-.5px; color:#e8e6e2; margin-bottom:28px;
+  }
+  .intro h2 em { font-style:italic; color:#c8a878; }
+  .intro p {
+    color:#8a8278; font-weight:300; font-size:1.02rem;
+  }
+
+  /* ---- WORK (cinematic) ---- */
+  .work {
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:center;
+    overflow:hidden;
+  }
+  .work-bg {
+    position:absolute; inset:0;
+    transition:transform 1.4s ease;
+  }
+  .work:hover .work-bg { transform:scale(1.05); }
+  .work-bg::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(10,10,10,.85) 0%, rgba(10,10,10,.2) 55%);
+  }
+  .work-1 .work-bg {
+    background:linear-gradient(145deg,#4a2018,#0a0505);
+  }
+  .work-2 .work-bg {
+    background:linear-gradient(145deg,#1a2030,#050810);
+  }
+  .work-3 .work-bg {
+    background:linear-gradient(145deg,#302020,#0a0505);
+  }
+  .work-4 .work-bg {
+    background:linear-gradient(145deg,#1a2a1a,#050a05);
+  }
+  .work-inner {
+    position:relative; z-index:1;
+    max-width:1100px; margin:0 auto; width:100%;
+    padding:0 48px;
+    display:flex; align-items:center; gap:80px;
+  }
+  .work:hover .work-bg { transform:scale(1.05); }
+  .work-text { max-width:520px; }
+  .work-text .num {
+    font-family:'EB Garamond',serif; font-size:.85rem;
+    color:#c8a878; letter-spacing:3px; margin-bottom:20px;
+  }
+  .work-text .cat {
+    font-size:.68rem; letter-spacing:5px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:20px;
+  }
+  .work-text h3 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(2rem,5vw,3.6rem); line-height:1.05;
+    letter-spacing:-1.5px; color:#e8e6e2;
+  }
+  .work-text h3 em { font-style:italic; color:#c8a878; }
+  .work-text p {
+    margin-top:22px; color:#8a8278; font-weight:300;
+    font-size:.98rem; line-height:1.8;
+  }
+  .work-text .view {
+    display:inline-block; margin-top:32px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#c8a878; text-decoration:none;
+    padding-bottom:4px; border-bottom:1px solid #c8a878;
+    transition:color .2s, border-color .2s;
+  }
+  .work-text .view:hover { color:#e8c898; border-color:#e8c898; }
+
+  /* ---- ABOUT ---- */
+  .about {
+    padding:140px 48px;
+    background:#0f0f0f;
+    border-top:1px solid #1a1a1a;
+    border-bottom:1px solid #1a1a1a;
+  }
+  .about-grid {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  }
+  .about-text .label {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:24px;
+  }
+  .about-text h2 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(1.8rem,4vw,2.8rem); line-height:1.2;
+    letter-spacing:-.5px; color:#e8e6e2; margin-bottom:28px;
+  }
+  .about-text h2 em { font-style:italic; color:#c8a878; }
+  .about-text p { color:#8a8278; font-weight:300; margin-bottom:18px; }
+  .about-visual {
+    aspect-ratio:4/5; position:relative; overflow:hidden;
+    background:linear-gradient(145deg,#1a1a1a,#0a0a0a);
+    border:1px solid #1f1f1f;
+  }
+  .about-visual::after {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 40% 40%, rgba(200,168,120,.15), transparent 60%);
+  }
+  .about-visual::before {
+    content:'◐'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); font-size:5rem;
+    color:#c8a878; opacity:.4;
+  }
+
+  /* ---- GALLERY STRIP ---- */
+  .gallery-strip {
+    padding:120px 0; overflow:hidden;
+  }
+  .gallery-strip .head {
+    text-align:center; margin-bottom:60px; padding:0 48px;
+  }
+  .gallery-strip .head .label {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:20px;
+  }
+  .gallery-strip .head h2 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(1.6rem,3.5vw,2.4rem); line-height:1.2;
+    color:#e8e6e2; letter-spacing:-.5px;
+  }
+  .gallery-strip .head h2 em { font-style:italic; color:#c8a878; }
+  .gallery-track {
+    display:flex; gap:20px; padding:0 48px;
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .gallery-track::-webkit-scrollbar { display:none; }
+  .gallery-frame {
+    flex:0 0 auto; width:340px; aspect-ratio:4/5;
+    scroll-snap-align:start;
+    position:relative; overflow:hidden;
+    border:1px solid #1f1f1f;
+    transition:border-color .3s;
+  }
+  .gallery-frame:hover { border-color:#c8a878; }
+  .gallery-frame:nth-child(1) { background:linear-gradient(145deg,#3a2018,#0a0505); }
+  .gallery-frame:nth-child(2) { background:linear-gradient(145deg,#201828,#050508); }
+  .gallery-frame:nth-child(3) { background:linear-gradient(145deg,#182028,#050810); }
+  .gallery-frame:nth-child(4) { background:linear-gradient(145deg,#302018,#0a0805); }
+  .gallery-frame:nth-child(5) { background:linear-gradient(145deg,#1a2820,#050a08); }
+  .gallery-frame .num {
+    position:absolute; bottom:20px; left:20px;
+    font-family:'EB Garamond',serif; font-size:.8rem;
+    color:#c8a878; letter-spacing:2px;
+  }
+  .gallery-hint {
+    text-align:center; margin-top:40px;
+    font-size:.68rem; letter-spacing:4px; text-transform:uppercase;
+    color:#5a554d;
+  }
+
+  /* ---- CTA ---- */
+  .cta {
+    padding:160px 48px; text-align:center;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(200,168,120,.08), transparent 60%),
+      #0a0a0a;
+  }
+  .cta .label {
+    font-size:.68rem; letter-spacing:6px; text-transform:uppercase;
+    color:#8a8278; margin-bottom:32px;
+  }
+  .cta h2 {
+    font-family:'EB Garamond',serif; font-weight:400;
+    font-size:clamp(2rem,5vw,3.4rem); line-height:1.1;
+    letter-spacing:-1px; color:#e8e6e2; margin-bottom:24px;
+    max-width:720px; margin-left:auto; margin-right:auto;
+  }
+  .cta h2 em { font-style:italic; color:#c8a878; }
+  .cta p {
+    color:#8a8278; font-weight:300; max-width:520px;
+    margin:0 auto 44px;
+  }
+  .cta-actions {
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  }
+  .btn {
+    padding:20px 48px; font-size:.72rem; font-weight:500;
+    letter-spacing:3px; text-transform:uppercase; text-decoration:none;
+    border-radius:2px; transition:all .3s;
+    display:inline-block;
+  }
+  .btn-primary {
+    background:#c8a878; color:#0a0a0a;
+  }
+  .btn-primary:hover {
+    background:#e8c898; transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(200,168,120,.2);
+  }
+  .btn-secondary {
+    background:transparent; border:1px solid #3a3a3a;
+    color:#e8e6e2;
+  }
+  .btn-secondary:hover { border-color:#c8a878; color:#c8a878; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#050505; border-top:1px solid #1a1a1a;
+    padding:56px 48px; text-align:center;
+    font-size:.72rem; letter-spacing:2px; text-transform:uppercase;
+    color:#5a554d;
+  }
+  footer .brand {
+    font-family:'EB Garamond',serif; font-size:1.2rem;
+    color:#e8e6e2; letter-spacing:.5px; text-transform:none;
+    margin-bottom:16px;
+  }
+  footer small { display:block; margin-top:20px; color:#3a3530; font-size:.65rem; }
+
+  @media(max-width:800px){
+    .nav { padding:20px 24px; }
+    .nav ul { display:none; }
+    .hero { padding:100px 24px 60px; }
+    .intro { padding:80px 24px; }
+    .work-inner { padding:0 24px; }
+    .work-bg::after {
+      background:linear-gradient(to top, rgba(10,10,10,.9) 0%, rgba(10,10,10,.3) 100%);
+    }
+    .about { padding:100px 24px; }
+    .about-grid { grid-template-columns:1fr; gap:48px; }
+    .gallery-strip { padding:80px 0; }
+    .gallery-track { padding:0 24px; }
+    .gallery-frame { width:280px; }
+    .cta { padding:110px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="logo">[Photographer Name]</span>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+     <li><a href="index.html">Showcase</a>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Photography</div>
+    <h1>Stories in the <em>dark.</em></h1>
+    <p>Concert, street, and documentary photography from the shadows — where the light hits hardest and the moment stays longest.</p>
+  </div>
+  <div class="hero-scroll">
+    Scroll
+    <span></span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="label">Approach</div>
+  <h2>I shoot in the <em>low light.</em></h2>
+  <p>I work in dark rooms, on night streets, and in places where light is scarce and precious. My photographs are an attempt to hold on to moments that happen in the corners of the world.</p>
+</section>
+
+<!-- WORK -->
+<div id="work">
+
+  <!-- WORK 01 -->
+  <div class="work work-1">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="num">— 01</div>
+        <div class="cat">Concert</div>
+        <h3>Where the sound <em>lands.</em></h3>
+        <p>Live music photography in whatever venue will have me. Sweat, smoke, and light — the ingredients of an honest concert shot.</p>
+        <a href="#" class="view">View Series →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK 02 -->
+  <div class="work work-2">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="num">— 02</div>
+        <div class="cat">Street</div>
+        <h3>Cities don't <em>sleep.</em></h3>
+        <p>Night streets, wet pavements, and the quiet people who inhabit them. A long-running project on cities after dark.</p>
+        <a href="#" class="view">View Series →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK 03 -->
+  <div class="work work-3">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="num">— 03</div>
+        <div class="cat">Documentary</div>
+        <h3>Stories worth <em>telling.</em></h3>
+        <p>Long-form documentary work — following people, places, and moments over months and years.</p>
+        <a href="#" class="view">View Series →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK 04 -->
+  <div class="work work-4">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="num">— 04</div>
+        <div class="cat">Portraits</div>
+        <h3>Faces lit <em>slowly.</em></h3>
+        <p>Low-light portraits of artists, musicians, and people whose work lives in the shadows.</p>
+        <a href="#" class="view">View Series →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="label">About</div>
+      <h2>Working in the <em>quiet dark.</em></h2>
+      <p>I'm [Photographer Name] — a photographer based in [City]. I've spent the last [X] years photographing music, cities, and people in low light.</p>
+      <p>My work has been published in [places], exhibited at [venues], and shown in [projects]. I'm always looking for the next story worth following.</p>
+    </div>
+    <div class="about-visual"></div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<section class="gallery-strip">
+  <div class="head">
+    <div class="label">Selected Frames</div>
+    <h2>A <em>quiet</em> look at loud places.</h2>
+  </div>
+  <div class="gallery-track">
+    <div class="gallery-frame"><span class="num">— 01</span></div>
+    <div class="gallery-frame"><span class="num">— 02</span></div>
+    <div class="gallery-frame"><span class="num">— 03</span></div>
+    <div class="gallery-frame"><span class="num">— 04</span></div>
+    <div class="gallery-frame"><span class="num">— 05</span></div>
+  </div>
+  <div class="gallery-hint">Scroll →</div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="label">Get in Touch</div>
+  <h2>If you have a story in the dark — <em>I want to hear it.</em></h2>
+  <p>Commissions, editorial work, or just a project worth photographing. Reach out anytime.</p>
+  <div class="cta-actions">
+    <a href="https://wa.me/[YOUR_NUMBER]?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20photography%20commission." class="btn btn-primary" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="mailto:[EMAIL]?subject=Photography%20Enquiry" class="btn btn-secondary">Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Photographer Name]</div>
+  <div>[City] · [Instagram] · [Year]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+</body>
+</html>

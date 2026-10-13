@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse — Business Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0b0d12;
+    --surface: #12151d;
+    --surface-2: #171b25;
+    --surface-3: #1e2330;
+    --border: #232838;
+    --border-soft: #1a1f2b;
+    --text: #f1f3f8;
+    --text-soft: #9aa3b8;
+    --text-faint: #5f6880;
+    --accent: #6366f1;
+    --accent-2: #8b5cf6;
+    --accent-soft: rgba(99, 102, 241, 0.14);
+    --success: #34d399;
+    --success-soft: rgba(52, 211, 153, 0.14);
+    --warning: #fbbf24;
+    --warning-soft: rgba(251, 191, 36, 0.14);
+    --danger: #f87171;
+    --danger-soft: rgba(248, 113, 113, 0.14);
+    --cyan: #22d3ee;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 18px;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.5);
+    --sidebar-w: 236px;
+    --topbar-h: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, select { font-family: inherit; }
+
+  /* ============================================================
+     LOGIN
+  ============================================================ */
+  #loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.16), transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.14), transparent 45%),
+      var(--bg);
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 40px 36px;
+  }
+
+  .brand-mark {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  }
+
+  .login-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .login-card p.sub { color: var(--text-soft); font-size: 14px; margin-bottom: 28px; }
+
+  .form-row { margin-bottom: 16px; }
+  .form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .form-row input,
+  .form-row select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    background: var(--surface-2);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-row input:focus,
+  .form-row select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  }
+  .btn-primary:hover { filter: brightness(1.1); }
+  .btn-ghost {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--surface-3); }
+  .btn-block { width: 100%; }
+
+  .login-error { color: var(--danger); font-size: 13px; min-height: 18px; margin-top: 10px; }
+
+  .demo-hint {
+    margin-top: 20px;
+    padding: 12px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    color: #a5b4fc;
+    text-align: center;
+  }
+
+  /* ============================================================
+     APP SHELL
+  ============================================================ */
+  #app { display: none; min-height: 100vh; }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px;
+    z-index: 50;
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 8px 20px;
+    font-weight: 800;
+    font-size: 17px;
+  }
+  .sidebar-brand .brand-mark { width: 32px; height: 32px; font-size: 15px; margin: 0; border-radius: 9px; box-shadow: none; }
+
+  .nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: all 0.15s;
+    text-align: left;
+    width: 100%;
+  }
+  .nav-item svg { width: 18px; height: 18px; stroke-width: 2; flex-shrink: 0; }
+  .nav-item:hover { background: var(--surface-2); color: var(--text); }
+  .nav-item.active { background: var(--accent-soft); color: #a5b4fc; font-weight: 600; }
+
+  .sidebar-foot { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; }
+  .user-row { display: flex; align-items: center; gap: 10px; padding: 8px; }
+  .avatar-sm {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .user-info { flex: 1; min-width: 0; }
+  .user-info strong { display: block; font-size: 13px; font-weight: 600; }
+  .user-info span { font-size: 12px; color: var(--text-faint); }
+  .logout-btn { color: var(--text-faint); padding: 6px; border-radius: var(--radius-sm); display: flex; }
+  .logout-btn:hover { color: var(--danger); background: var(--danger-soft); }
+  .logout-btn svg { width: 17px; height: 17px; }
+
+  /* ============================================================
+     MAIN + TOPBAR
+  ============================================================ */
+  .main { margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .topbar {
+    height: var(--topbar-h);
+    background: rgba(18, 21, 29, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+
+  .menu-toggle { display: none; padding: 8px; border-radius: var(--radius-sm); color: var(--text); }
+  .menu-toggle:hover { background: var(--surface-2); }
+  .menu-toggle svg { width: 20px; height: 20px; display: block; }
+
+  .page-title { font-size: 16px; font-weight: 700; }
+
+  .topbar-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+
+  .date-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+  }
+  .date-chip svg { width: 15px; height: 15px; }
+
+  .content { flex: 1; padding: 28px 24px 48px; max-width: 1320px; width: 100%; }
+
+  /* ============================================================
+     VIEWS
+  ============================================================ */
+  .view { display: none; animation: fadeIn 0.3s ease; }
+  .view.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .view-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .view-title { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .view-sub { color: var(--text-soft); font-size: 14px; margin-top: 4px; }
+
+  /* ============================================================
+     KPI CARDS
+  ============================================================ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .kpi-card:hover { border-color: #2e3548; transform: translateY(-2px); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .kpi-card:hover::before { opacity: 1; }
+
+  .kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .kpi-label { font-size: 13px; color: var(--text-soft); font-weight: 500; }
+  .kpi-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kpi-icon svg { width: 18px; height: 18px; }
+  .kpi-icon.indigo { background: var(--accent-soft); color: #a5b4fc; }
+  .kpi-icon.green  { background: var(--success-soft); color: var(--success); }
+  .kpi-icon.amber  { background: var(--warning-soft); color: var(--warning); }
+  .kpi-icon.cyan   { background: rgba(34, 211, 238, 0.14); color: var(--cyan); }
+
+  .kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .kpi-foot { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12.5px; font-weight: 600; }
+  .kpi-foot.up { color: var(--success); }
+  .kpi-foot.down { color: var(--danger); }
+  .kpi-foot span { color: var(--text-faint); font-weight: 500; }
+  .kpi-foot svg { width: 14px; height: 14px; }
+
+  /* ============================================================
+     PANELS
+  ============================================================ */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .panel-head {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .panel-head h3 { font-size: 15px; font-weight: 600; }
+  .panel-head .sub { font-size: 12.5px; color: var(--text-faint); margin-top: 2px; }
+  .panel-body { padding: 20px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-2-even { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+  /* ============================================================
+     CHART (CSS bar chart)
+  ============================================================ */
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 220px;
+    padding-top: 10px;
+  }
+  .chart-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .chart-bar-wrap {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .chart-bar {
+    width: 100%;
+    max-width: 38px;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, #6366f1, #4f46e5);
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.15s;
+    position: relative;
+    cursor: pointer;
+  }
+  .chart-bar:hover { filter: brightness(1.25); }
+  .chart-bar.highlight { background: linear-gradient(180deg, #8b5cf6, #7c3aed); }
+  .chart-label { font-size: 11.5px; color: var(--text-faint); font-weight: 500; }
+
+  /* ============================================================
+     DONUT / LEGEND
+  ============================================================ */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .donut {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    background: conic-gradient(
+      #6366f1 0deg 140deg,
+      #8b5cf6 140deg 230deg,
+      #22d3ee 230deg 300deg,
+      #34d399 300deg 360deg
+    );
+  }
+  .donut::after {
+    content: '';
+    position: absolute;
+    inset: 26px;
+    border-radius: 50%;
+    background: var(--surface);
+  }
+  .donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .donut-center strong { font-size: 22px; font-weight: 700; }
+  .donut-center span { font-size: 11px; color: var(--text-faint); }
+
+  .legend { display: flex; flex-direction: column; gap: 12px; flex: 1; min-width: 160px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .legend-item .name { flex: 1; color: var(--text-soft); }
+  .legend-item .val { font-weight: 600; }
+
+  /* ============================================================
+     PROGRESS LIST
+  ============================================================ */
+  .progress-item { margin-bottom: 18px; }
+  .progress-item:last-child { margin-bottom: 0; }
+  .progress-top { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13.5px; }
+  .progress-top .name { font-weight: 500; }
+  .progress-top .val { color: var(--text-soft); font-weight: 600; }
+  .progress-track {
+    height: 8px;
+    background: var(--surface-3);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .progress-fill.green { background: linear-gradient(90deg, #34d399, #10b981); }
+  .progress-fill.cyan  { background: linear-gradient(90deg, #22d3ee, #06b6d4); }
+  .progress-fill.amber { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+
+  /* ============================================================
+     TABLE
+  ============================================================ */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-faint);
+    padding: 12px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td { padding: 14px 20px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pill-green { background: var(--success-soft); color: var(--success); }
+  .pill-amber { background: var(--warning-soft); color: var(--warning); }
+  .pill-red   { background: var(--danger-soft); color: var(--danger); }
+
+  .trend-up { color: var(--success); font-weight: 600; }
+  .trend-down { color: var(--danger); font-weight: 600; }
+
+  /* ============================================================
+     TOAST
+  ============================================================ */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 200;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast svg { color: var(--success); flex-shrink: 0; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 1100px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-2-even { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+    .main { margin-left: 0; }
+    .menu-toggle { display: flex; }
+    .content { padding: 20px 16px 40px; }
+    .topbar { padding: 0 16px; }
+    .date-chip { display: none; }
+    .kpi-value { font-size: 24px; }
+    .view-title { font-size: 19px; }
+    .toast { left: 16px; right: 16px; bottom: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .login-card { padding: 32px 24px; }
+    .chart { height: 180px; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+    <!-- ============================================================
+       LOGIN
+  ============================================================ -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="brand-mark">P</div>
+      <h1>Welcome to Pulse</h1>
+      <p class="sub">Sign in to view your business analytics.</p>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="form-row">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" value="demo@pulse.app" required />
+        </div>
+        <div class="form-row">
+          <label for="loginPass">Password</label>
+          <input type="text" id="loginPass" value="demo123" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="login-error" id="loginError"></div>
+      </form>
+
+      <div class="demo-hint">
+        Demo credentials are pre-filled — just press Sign In.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       APP
+  ============================================================ -->
+  <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark">P</div>
+        Pulse
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Overview
+        </button>
+        <button class="nav-item" data-view="sales">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Sales
+        </button>
+        <button class="nav-item" data-view="customers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Customers
+        </button>
+        <button class="nav-item" data-view="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Reports
+        </button>
+             <button class="nav-item"><a href="index.html">Back to Showcase</a></button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="user-row">
+          <div class="avatar-sm">DK</div>
+          <div class="user-info">
+            <strong>David Kruger</strong>
+            <span>Admin</span>
+          </div>
+          <button class="logout-btn" onclick="handleLogout()" title="Log out">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="page-title" id="pageTitle">Overview</div>
+        <div class="topbar-actions">
+          <div class="date-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Last 30 days
+          </div>
+          <button class="btn btn-primary" onclick="showToast('Report exported')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="content">
+
+        <!-- ============ OVERVIEW ============ -->
+        <section class="view active" id="view-overview">
+          <div class="view-head">
+            <div>
+              <h2 class="view-title">Overview</h2>
+              <p class="view-sub">A snapshot of your business performance.</p>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Total Revenue</span>
+                <span class="kpi-icon indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">R184,320</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                18.2% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Orders</span>
+                <span class="kpi-icon green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">1,284</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                9.4% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Avg. Order Value</span>
+                <span class="kpi-icon cyan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">R143.55</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                4.1% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Refund Rate</span>
+                <span class="kpi-icon amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">1.8%</div>
+              <div class="kpi-foot down">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                0.6% <span>vs last month</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-head">
+                <div>
+                  <h3>Revenue Trend</h3>
+                  <div class="sub">Monthly revenue over the last 8 months</div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="chart" id="revenueChart"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Sales by Channel</h3>
+              </div>
+              <div class="panel-body">
+                <div class="donut-wrap">
+                  <div class="donut">
+                    <div class="donut-center">
+                      <strong>1,284</strong>
+                      <span>orders</span>
+                    </div>
+                  </div>
+                  <div class="legend">
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:#6366f1"></span>
+                      <span class="name">Online Store</span>
+                      <span class="val">39%</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:#8b5cf6"></span>
+                      <span class="name">Marketplace</span>
+                      <span class="val">25%</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:#22d3ee"></span>
+                      <span class="name">In-Store</span>
+                      <span class="val">19%</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:#34d399"></span>
+                      <span class="name">Wholesale</span>
+                      <span class="val">17%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2-even">
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Top Products</h3>
+              </div>
+              <div class="panel-body" id="topProducts"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Recent Orders</h3>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Customer</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentOrders"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SALES ============ -->
+        <section class="view" id="view-sales">
+          <div class="view-head">
+            <div>
+              <h2 class="view-title">Sales</h2>
+              <p class="view-sub">Detailed breakdown of your sales performance.</p>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Gross Sales</span>
+                <span class="kpi-icon indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">R184,320</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                18.2% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Net Sales</span>
+                <span class="kpi-icon green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">R168,940</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                16.7% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Discounts</span>
+                <span class="kpi-icon amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">R9,240</div>
+              <div class="kpi-foot down">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                2.3% <span>vs last month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Conversion</span>
+                <span class="kpi-icon cyan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </span>
+              </div>
+              <div class="kpi-value">3.42%</div>
+              <div class="kpi-foot up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                0.8% <span>vs last month</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>Weekly Sales</h3>
+                <div class="sub">Revenue by day of week</div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div class="chart" id="weeklyChart"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ CUSTOMERS ============ -->
+        <section class="view" id="view-customers">
+          <div class="view-head">
+            <div>
+              <h2 class="view-title">Customers</h2>
+              <p class="view-sub">Your customer base and their activity.</p>
+            </div>
+          </div>
+
+          <div class="grid-2-even">
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Customer Segments</h3>
+              </div>
+              <div class="panel-body" id="segments"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Top Customers</h3>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Orders</th>
+                      <th>Spent</th>
+                    </tr>
+                  </thead>
+                  <tbody id="topCustomers"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ REPORTS ============ -->
+        <section class="view" id="view-reports">
+          <div class="view-head">
+            <div>
+              <h2 class="view-title">Reports</h2>
+              <p class="view-sub">Generate and download business reports.</p>
+            </div>
+          </div>
+
+          <div class="grid-2-even">
+            <div class="panel">
+              <div class="panel-head"><h3>Available Reports</h3></div>
+              <div class="panel-body" id="reportList"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><h3>Performance Summary</h3></div>
+              <div class="panel-body" id="perfSummary"></div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* ============================================================
+       DATA
+    ============================================================ */
+    const revenueData = [
+      { month: 'Jul', value: 62 },
+      { month: 'Aug', value: 74 },
+      { month: 'Sep', value: 58 },
+      { month: 'Oct', value: 88 },
+      { month: 'Nov', value: 96 },
+      { month: 'Dec', value: 100 },
+      { month: 'Jan', value: 82 },
+      { month: 'Feb', value: 91 },
+    ];
+
+    const weeklyData = [
+      { day: 'Mon', value: 54 },
+      { day: 'Tue', value: 68 },
+      { day: 'Wed', value: 82 },
+      { day: 'Thu', value: 74 },
+      { day: 'Fri', value: 100 },
+      { day: 'Sat', value: 92 },
+      { day: 'Sun', value: 46 },
+    ];
+
+    const topProducts = [
+      { name: 'Wireless Headphones', value: 92, sales: 'R42,180' },
+      { name: 'Smart Watch Pro',     value: 78, sales: 'R35,640' },
+      { name: 'Bluetooth Speaker',   value: 64, sales: 'R28,900' },
+      { name: 'Phone Case Bundle',   value: 48, sales: 'R19,450' },
+      { name: 'USB-C Hub',           value: 36, sales: 'R14,220' },
+    ];
+
+    const recentOrders = [
+      { id: '#4821', customer: 'Thabo Mokoena',  amount: 'R1,240', status: 'Paid' },
+      { id: '#4820', customer: 'Lerato Dlamini', amount: 'R860',   status: 'Paid' },
+      { id: '#4819', customer: 'Ryan Botha',     amount: 'R2,150', status: 'Pending' },
+      { id: '#4818', customer: 'Nadia Adams',    amount: 'R540',   status: 'Paid' },
+      { id: '#4817', customer: 'Kyle van Wyk',   amount: 'R1,890', status: 'Refunded' },
+    ];
+
+    const segments = [
+      { name: 'New Customers',     value: 34, count: '437', cls: '' },
+      { name: 'Returning',         value: 52, count: '668', cls: 'green' },
+      { name: 'VIP / Loyalty',     value: 14, count: '179', cls: 'cyan' },
+    ];
+
+    const topCustomers = [
+      { name: 'Thabo Mokoena',  orders: 24, spent: 'R18,420' },
+      { name: 'Lerato Dlamini', orders: 19, spent: 'R14,860' },
+      { name: 'Ryan Botha',     orders: 16, spent: 'R12,340' },
+      { name: 'Nadia Adams',    orders: 14, spent: 'R9,780' },
+      { name: 'Kyle van Wyk',   orders: 11, spent: 'R7,650' },
+    ];
+
+    const reports = [
+      { name: 'Sales Summary',      desc: 'Revenue, orders and trends', icon: '📊' },
+      { name: 'Customer Report',    desc: 'Segments and retention',     icon: '👥' },
+      { name: 'Product Performance',desc: 'Best and worst sellers',     icon: '📦' },
+      { name: 'Tax Report',         desc: 'VAT and deductions',         icon: '🧾' },
+    ];
+
+    const perfSummary = [
+      { name: 'Revenue Target',   value: 82, cls: '' },
+      { name: 'Customer Growth',  value: 64, cls: 'green' },
+      { name: 'Retention Rate',   value: 91, cls: 'cyan' },
+      { name: 'Inventory Turnover', value: 47, cls: 'amber' },
+    ];
+
+    /* ============================================================
+       LOGIN / LOGOUT
+    ============================================================ */
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value.trim();
+      if (email === 'demo@pulse.app' && pass === 'demo123') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+        renderAll();
+        showToast('Welcome back, David');
+      } else {
+        document.getElementById('loginError').textContent = 'Invalid email or password. Use the demo credentials.';
+      }
+    }
+
+    function handleLogout() {
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('loginError').textContent = '';
+    }
+
+    /* ============================================================
+       VIEW SWITCHING
+    ============================================================ */
+    const viewTitles = {
+      overview: 'Overview',
+      sales: 'Sales',
+      customers: 'Customers',
+      reports: 'Reports',
+    };
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.dataset.view === viewName);
+      });
+
+      document.getElementById('pageTitle').textContent = viewTitles[viewName] || 'Dashboard';
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    /* ============================================================
+       RENDER
+    ============================================================ */
+    function renderAll() {
+      renderChart('revenueChart', revenueData, 'month');
+      renderChart('weeklyChart', weeklyData, 'day');
+      renderTopProducts();
+      renderRecentOrders();
+      renderSegments();
+      renderTopCustomers();
+      renderReports();
+      renderPerfSummary();
+    }
+
+    function renderChart(id, data, labelKey) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const max = Math.max(...data.map(d => d.value));
+      el.innerHTML = data.map(d => {
+        const pct = (d.value / max) * 100;
+        const highlight = d.value === max ? ' highlight' : '';
+        return `
+          <div class="chart-col">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar${highlight}" style="height:${pct}%" title="${d[labelKey]}: ${d.value}"></div>
+            </div>
+            <span class="chart-label">${d[labelKey]}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTopProducts() {
+      const el = document.getElementById('topProducts');
+      if (!el) return;
+      el.innerHTML = topProducts.map(p => `
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="name">${p.name}</span>
+            <span class="val">${p.sales}</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:${p.value}%"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function statusPill(status) {
+      const map = { Paid: 'pill-green', Pending: 'pill-amber', Refunded: 'pill-red' };
+      return `<span class="pill ${map[status] || 'pill-green'}">${status}</span>`;
+    }
+
+    function renderRecentOrders() {
+      const el = document.getElementById('recentOrders');
+      if (!el) return;
+      el.innerHTML = recentOrders.map(o => `
+        <tr>
+          <td><strong>${o.id}</strong></td>
+          <td>${o.customer}</td>
+          <td>${o.amount}</td>
+          <td>${statusPill(o.status)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderSegments() {
+      const el = document.getElementById('segments');
+      if (!el) return;
+      el.innerHTML = segments.map(s => `
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="name">${s.name}</span>
+            <span class="val">${s.count} · ${s.value}%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill ${s.cls}" style="width:${s.value}%"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTopCustomers() {
+      const el = document.getElementById('topCustomers');
+      if (!el) return;
+      el.innerHTML = topCustomers.map(c => `
+        <tr>
+          <td><strong>${c.name}</strong></td>
+          <td>${c.orders}</td>
+          <td>${c.spent}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderReports() {
+      const el = document.getElementById('reportList');
+      if (!el) return;
+      el.innerHTML = reports.map(r => `
+        <div class="progress-item" style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+          <div style="width:40px;height:40px;border-radius:10px;background:var(--surface-3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${r.icon}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px">${r.name}</div>
+            <div style="font-size:12.5px;color:var(--text-faint)">${r.desc}</div>
+          </div>
+          <button class="btn btn-ghost" style="padding:7px 12px;font-size:13px" onclick="showToast('${r.name} downloaded')">Download</button>
+        </div>
+      `).join('');
+    }
+
+    function renderPerfSummary() {
+      const el = document.getElementById('perfSummary');
+      if (!el) return;
+      el.innerHTML = perfSummary.map(p => `
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="name">${p.name}</span>
+            <span class="val">${p.value}%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill ${p.cls}" style="width:${p.value}%"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    /* ============================================================
+       SIDEBAR (mobile)
+    ============================================================ */
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    /* ============================================================
+       INIT
+    ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => switchView(item.dataset.view));
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demos — RDH Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-alt: #f9fafb;
+    --border: #e6e8ee;
+    --text: #1a1d26;
+    --text-soft: #6b7280;
+    --text-faint: #9ca3af;
+    --accent: #4f46e5;
+    --accent-hover: #4338ca;
+    --accent-soft: #eef2ff;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --shadow: 0 2px 8px rgba(16, 24, 40, 0.07);
+    --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.09);
+    --shadow-lg: 0 24px 48px rgba(16, 24, 40, 0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ============================================================
+     HEADER
+  ============================================================ */
+  .site-header {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; }
+  .brand-mark {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .back-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link svg { width: 16px; height: 16px; }
+
+  /* ============================================================
+     HERO
+  ============================================================ */
+  .hero { padding: 64px 0 40px; text-align: center; }
+  .hero .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--text-soft);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ============================================================
+     CATEGORY NAV (jump links)
+  ============================================================ */
+  .cat-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 0 48px;
+  }
+  .cat-nav a {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    transition: all 0.15s;
+  }
+  .cat-nav a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* ============================================================
+     CATEGORY SECTION
+  ============================================================ */
+  .category { padding: 0 0 64px; scroll-margin-top: 90px; }
+
+  .cat-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .cat-head-left { display: flex; align-items: center; gap: 14px; }
+  .cat-icon {
+    width: 48px; height: 48px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .cat-icon svg { width: 24px; height: 24px; }
+  .cat-icon.indigo { background: var(--accent-soft); color: var(--accent); }
+  .cat-icon.amber  { background: #fffbeb; color: #d97706; }
+  .cat-icon.pink   { background: #fdf2f8; color: #db2777; }
+  .cat-icon.green  { background: #ecfdf5; color: #059669; }
+
+  .cat-head h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .cat-head .cat-sub { font-size: 14px; color: var(--text-soft); margin-top: 2px; }
+
+  .cat-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.15s;
+  }
+  .cat-link:hover { gap: 10px; }
+  .cat-link svg { width: 16px; height: 16px; }
+
+  /* ============================================================
+     DEMO GRID
+  ============================================================ */
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .demo-tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .demo-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: #d8dbe6;
+  }
+
+  .tile-preview {
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tile-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+  .tile-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .tile-body p { font-size: 13.5px; color: var(--text-soft); flex: 1; margin-bottom: 16px; }
+
+  .tile-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .tile-tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--surface-alt);
+    color: var(--text-soft);
+    border: 1px solid var(--border);
+  }
+  .tile-view {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.15s;
+  }
+  .demo-tile:hover .tile-view { gap: 9px; }
+  .tile-view svg { width: 15px; height: 15px; }
+
+  /* ============================================================
+     TILE PREVIEWS (CSS mockups)
+  ============================================================ */
+  .prev { position: absolute; inset: 0; }
+
+  /* Accommodation — warm hotel */
+  .prev-accom { background: linear-gradient(160deg, #f5ede2, #e8dcc8); }
+  .prev-accom .band { position: absolute; top: 0; left: 0; right: 0; height: 34px; background: rgba(255,255,255,0.7); display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .prev-accom .band .logo { width: 16px; height: 16px; border-radius: 4px; background: #8a6d3b; }
+  .prev-accom .band .ln { height: 5px; width: 40px; border-radius: 3px; background: #c9b89a; }
+  .prev-accom .band .ln:last-child { margin-left: auto; width: 30px; }
+  .prev-accom .hero-img { position: absolute; top: 34px; left: 14px; right: 14px; height: 60px; border-radius: 8px; background: linear-gradient(135deg, #b89b6e, #8a6d3b); }
+  .prev-accom .row { position: absolute; bottom: 14px; left: 14px; right: 14px; display: flex; gap: 8px; }
+  .prev-accom .card { flex: 1; height: 34px; border-radius: 6px; background: rgba(255,255,255,0.85); }
+
+  /* Restaurants — moody dark */
+  .prev-rest { background: #1a1512; }
+  .prev-rest .band { position: absolute; top: 0; left: 0; right: 0; height: 30px; display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .prev-rest .band .logo { width: 14px; height: 14px; border-radius: 50%; background: #b4824a; }
+  .prev-rest .band .ln { height: 4px; width: 36px; border-radius: 2px; background: #3d3229; }
+  .prev-rest .band .ln:last-child { margin-left: auto; width: 26px; }
+  .prev-rest .title { position: absolute; top: 44px; left: 14px; right: 14px; height: 12px; width: 60%; border-radius: 3px; background: #b4824a; }
+  .prev-rest .sub { position: absolute; top: 64px; left: 14px; width: 40%; height: 6px; border-radius: 3px; background: #3d3229; }
+  .prev-rest .btn { position: absolute; bottom: 16px; left: 14px; width: 70px; height: 22px; border-radius: 100px; background: #b4824a; }
+
+  /* Photography — editorial cream */
+  .prev-photo { background: #faf7f2; }
+  .prev-photo .band { position: absolute; top: 0; left: 0; right: 0; height: 30px; display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .prev-photo .band .logo { width: 14px; height: 14px; border-radius: 3px; background: #6b4f3a; }
+  .prev-photo .band .ln { height: 4px; width: 34px; border-radius: 2px; background: #d8cbb8; }
+  .prev-photo .band .ln:last-child { margin-left: auto; width: 24px; }
+  .prev-photo .grid { position: absolute; top: 40px; left: 14px; right: 14px; bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+  .prev-photo .grid div { border-radius: 5px; background: linear-gradient(135deg, #d8cbb8, #b8a48a); }
+  .prev-photo .grid div:nth-child(2) { background: linear-gradient(135deg, #c9b89a, #a08a6a); }
+  .prev-photo .grid div:nth-child(3) { background: linear-gradient(135deg, #e0d4c0, #c9b89a); }
+  .prev-photo .grid div:nth-child(4) { background: linear-gradient(135deg, #b8a48a, #8a6d3b); }
+
+  /* Web Apps — clean SaaS */
+  .prev-apps { background: #f6f7fb; }
+  .prev-apps .band { position: absolute; top: 0; left: 0; right: 0; height: 30px; background: #fff; border-bottom: 1px solid #e6e8ee; display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .prev-apps .band .logo { width: 14px; height: 14px; border-radius: 4px; background: linear-gradient(135deg, #4f46e5, #8b5cf6); }
+  .prev-apps .band .ln { height: 4px; width: 34px; border-radius: 2px; background: #eef0f4; }
+  .prev-apps .band .ln:last-child { margin-left: auto; width: 24px; }
+  .prev-apps .side { position: absolute; top: 30px; left: 0; bottom: 0; width: 40px; background: #fff; border-right: 1px solid #e6e8ee; padding: 10px 8px; display: flex; flex-direction: column; gap: 7px; }
+  .prev-apps .side .ln { height: 5px; border-radius: 3px; background: #eef0f4; }
+  .prev-apps .side .ln.active { background: #eef2ff; }
+  .prev-apps .main { position: absolute; top: 30px; left: 40px; right: 0; bottom: 0; padding: 12px; }
+  .prev-apps .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 8px; }
+  .prev-apps .stat { height: 30px; border-radius: 6px; background: #fff; border: 1px solid #e6e8ee; }
+  .prev-apps .stat:first-child { border-left: 3px solid #4f46e5; }
+  .prev-apps .rows { background: #fff; border: 1px solid #e6e8ee; border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .prev-apps .rows .r { height: 5px; border-radius: 3px; background: #eef0f4; }
+  .prev-apps .rows .r.short { width: 60%; }
+
+  /* ============================================================
+     CTA
+  ============================================================ */
+  .cta {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    border-radius: var(--radius-lg);
+    padding: 56px 40px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 64px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .cta p { font-size: 16px; opacity: 0.9; max-width: 520px; margin: 0 auto 28px; }
+  .cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--accent);
+    padding: 13px 26px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .cta .btn:hover { background: #f3f4ff; }
+  .cta .btn svg { width: 16px; height: 16px; }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 13.5px;
+  }
+  .site-footer a { color: var(--accent); font-weight: 600; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 900px) {
+    .demo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 44px 0 28px; }
+    .demo-grid { grid-template-columns: 1fr; }
+    .cat-head h2 { font-size: 20px; }
+    .cta { padding: 40px 24px; }
+    .cta h2 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+    <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html#demos" class="brand">
+        <span class="brand-mark">R</span>
+        RDH Design
+      </a>
+      <a href="../index.html#demos" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to portfolio
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Live Demos</span>
+      <h1>See what's <span>possible</span></h1>
+      <p>A growing collection of demo sites across different industries — each one built to show what a tailored website or web app can do for your business.</p>
+    </div>
+  </section>
+
+  <!-- CATEGORY JUMP NAV -->
+  <nav class="cat-nav">
+    <a href="#accommodation">Accommodation</a>
+    <a href="#restaurants">Restaurants</a>
+    <a href="#photography">Photography</a>
+    <a href="#apps">Web Apps</a>
+  </nav>
+
+ <!-- ============================================================
+       ACCOMMODATION
+  ============================================================ -->
+  <section class="category" id="accommodation">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="cat-head-left">
+          <div class="cat-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <h2>Accommodation</h2>
+            <div class="cat-sub">Guest houses, lodges and boutique stays</div>
+          </div>
+        </div>
+        <a href="accommodation/index.html" class="cat-link">
+          View all
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="demo-grid">
+        <a href="accommodation/demo-1.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-accom" style="background:linear-gradient(160deg,#141118,#241d2b)">
+              <div class="band" style="background:rgba(20,17,24,0.85)"><span class="logo" style="background:#b4824a"></span><span class="ln" style="background:#3a3038"></span><span class="ln" style="background:#3a3038"></span></div>
+              <div class="hero-img" style="background:linear-gradient(135deg,#3a2d40,#141118)"></div>
+              <div class="row"><div class="card" style="background:rgba(255,255,255,0.06)"></div><div class="card" style="background:rgba(255,255,255,0.06)"></div><div class="card" style="background:rgba(255,255,255,0.06)"></div></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Modern Dark</h3>
+            <p>A sleek, dark-themed design with smooth scroll animations and a refined, premium feel.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Accommodation</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="accommodation/demo-2.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-accom" style="background:linear-gradient(160deg,#faf5ec,#f0e4d2)">
+              <div class="band" style="background:rgba(255,255,255,0.75)"><span class="logo" style="background:#a8865a"></span><span class="ln" style="background:#d8c9b0"></span><span class="ln" style="background:#d8c9b0"></span></div>
+              <div class="hero-img" style="background:linear-gradient(135deg,#d8c9b0,#b0987a)"></div>
+              <div class="row"><div class="card"></div><div class="card"></div><div class="card"></div></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Warm Editorial</h3>
+            <p>A soft, light design inspired by travel magazines — calm colours and a warm, welcoming tone.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Accommodation</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="accommodation/demo-3.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-accom" style="background:linear-gradient(160deg,#f4f2ee,#e6e0d5)">
+              <div class="band" style="background:rgba(255,255,255,0.8)"><span class="logo" style="background:#4a4a4a"></span><span class="ln" style="background:#d4cec2"></span><span class="ln" style="background:#d4cec2"></span></div>
+              <div class="hero-img" style="background:linear-gradient(135deg,#c9c2b4,#8e8778)"></div>
+              <div class="row"><div class="card"></div><div class="card"></div><div class="card"></div></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Soft Modern</h3>
+            <p>A refined, contemporary design with elegant typography and generous space — modern and timeless.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Accommodation</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESTAURANTS
+  ============================================================ -->
+  <section class="category" id="restaurants">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="cat-head-left">
+          <div class="cat-icon pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+          </div>
+          <div>
+            <h2>Restaurants</h2>
+            <div class="cat-sub">Cafés, bistros and fine dining</div>
+          </div>
+        </div>
+        <a href="restaurants/index.html" class="cat-link">
+          View all
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="demo-grid">
+        <a href="Restaurant/booking-first.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-rest">
+              <div class="band"><span class="logo"></span><span class="ln"></span><span class="ln"></span></div>
+              <div class="title"></div>
+              <div class="sub"></div>
+              <div class="btn"></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Booking-First</h3>
+            <p>Moody, atmospheric design that puts reservations front and centre.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Restaurant</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Restaurant/menu-first.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-rest" style="background:#fdf8f0">
+              <div class="band"><span class="logo" style="background:#b8863a"></span><span class="ln" style="background:#e8dcc8"></span><span class="ln" style="background:#e8dcc8"></span></div>
+              <div class="title" style="background:#b8863a"></div>
+              <div class="sub" style="background:#e8dcc8"></div>
+              <div class="btn" style="background:#b8863a"></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Menu-First</h3>
+            <p>Bright, appetising layout that leads with the food and full menu.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Restaurant</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Restaurant/booking-&-menu.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-rest" style="background:#f4f1ec">
+              <div class="band"><span class="logo" style="background:#a8845a"></span><span class="ln" style="background:#ddd5c8"></span><span class="ln" style="background:#ddd5c8"></span></div>
+              <div class="title" style="background:#a8845a"></div>
+              <div class="sub" style="background:#ddd5c8"></div>
+              <div class="btn" style="background:#a8845a"></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Booking + Menu</h3>
+            <p>Modern, clean design combining a dedicated booking section with the menu.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Restaurant</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PHOTOGRAPHY
+  ============================================================ -->
+  <section class="category" id="photography">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="cat-head-left">
+          <div class="cat-icon indigo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div>
+            <h2>Photography</h2>
+            <div class="cat-sub">Portfolio and gallery sites for photographers</div>
+          </div>
+        </div>
+        <a href="photography/index.html" class="cat-link">
+          View all
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="demo-grid">
+        <a href="Galleries/full-bleed-editorial.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-photo">
+              <div class="band"><span class="logo"></span><span class="ln"></span><span class="ln"></span></div>
+              <div class="grid"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Full-Bleed Editorial</h3>
+            <p>Magazine-style layout with full-screen imagery and a warm, editorial feel.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Photography</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Galleries/minimal-grid.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-photo" style="background:#ffffff">
+              <div class="band"><span class="logo" style="background:#1a1a1a"></span><span class="ln" style="background:#e5e5e5"></span><span class="ln" style="background:#e5e5e5"></span></div>
+              <div class="grid">
+                <div style="background:linear-gradient(135deg,#e5e5e5,#c9c9c9)"></div>
+                <div style="background:linear-gradient(135deg,#d4d4d4,#b0b0b0)"></div>
+                <div style="background:linear-gradient(135deg,#ededed,#d4d4d4)"></div>
+                <div style="background:linear-gradient(135deg,#c9c9c9,#a0a0a0)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Minimal Grid</h3>
+            <p>Clean, white gallery grid with filters and a quiet, gallery-style feel.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Photography</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Galleries/dark-cinematic.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-photo" style="background:#0a0a0a">
+              <div class="band"><span class="logo" style="background:#c8a878"></span><span class="ln" style="background:#2a2a2a"></span><span class="ln" style="background:#2a2a2a"></span></div>
+              <div class="grid">
+                <div style="background:linear-gradient(135deg,#2a2a2a,#1a1a1a)"></div>
+                <div style="background:linear-gradient(135deg,#3a3a3a,#222)"></div>
+                <div style="background:linear-gradient(135deg,#222,#111)"></div>
+                <div style="background:linear-gradient(135deg,#333,#1a1a1a)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Dark Cinematic</h3>
+            <p>Deep black and gold, cinematic full-screen sections and a scroll gallery.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Photography</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WEB APPS
+  ============================================================ -->
+  <section class="category" id="apps">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="cat-head-left">
+          <div class="cat-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div>
+            <h2>Web Apps</h2>
+            <div class="cat-sub">Booking systems, dashboards and member portals</div>
+          </div>
+        </div>
+        <a href="apps/index.html" class="cat-link">
+          View all
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="demo-grid">
+        <a href="Web Apps/booking-system.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-apps">
+              <div class="band"><span class="logo"></span><span class="ln"></span><span class="ln"></span></div>
+              <div class="side"><span class="ln active"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div>
+              <div class="main">
+                <div class="stats"><div class="stat"></div><div class="stat"></div></div>
+                <div class="rows"><div class="r"></div><div class="r short"></div><div class="r"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Nimbus — Booking System</h3>
+            <p>Light admin app for managing appointments, clients and services.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Web App</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Web Apps/business-dashboard.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-apps" style="background:#0b0d12">
+              <div class="band" style="background:#12151d;border-color:#232838"><span class="logo" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"></span><span class="ln" style="background:#232838"></span><span class="ln" style="background:#232838"></span></div>
+              <div class="side" style="background:#12151d;border-color:#232838"><span class="ln" style="background:#1e2330"></span><span class="ln" style="background:rgba(99,102,241,0.3)"></span><span class="ln" style="background:#1e2330"></span><span class="ln" style="background:#1e2330"></span></div>
+              <div class="main">
+                <div class="stats"><div class="stat" style="background:#12151d;border-color:#232838"></div><div class="stat" style="background:#12151d;border-color:#232838"></div></div>
+                <div class="rows" style="background:#12151d;border-color:#232838"><div class="r" style="background:#232838"></div><div class="r short" style="background:#232838"></div><div class="r" style="background:#232838"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Pulse — Business Dashboard</h3>
+            <p>Dark, data-rich analytics for sales, customers and performance.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Web App</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Web Apps/member-portal.html" class="demo-tile">
+          <div class="tile-preview">
+            <div class="prev prev-apps" style="background:#f7f6fb">
+              <div class="band" style="background:#fff;border-color:#ebe8f3"><span class="logo" style="background:linear-gradient(135deg,#7c3aed,#ec4899)"></span><span class="ln" style="background:#f3eeff"></span><span class="ln" style="background:#f3eeff"></span></div>
+              <div class="main" style="left:0;top:30px;padding:12px">
+                <div class="rows" style="background:#fff;border-color:#ebe8f3;margin-bottom:8px"><div class="r" style="background:#f0eef6"></div><div class="r short" style="background:#f0eef6"></div></div>
+                <div class="rows" style="background:#fff;border-color:#ebe8f3"><div class="r" style="background:#f0eef6"></div><div class="r short" style="background:#f0eef6"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tile-body">
+            <h3>Hive — Member Portal</h3>
+            <p>Warm community portal with profiles, a content feed and messaging.</p>
+            <div class="tile-foot">
+              <span class="tile-tag">Web App</span>
+              <span class="tile-view">View demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap">
+    <div class="cta">
+      <h2>Like what you see?</h2>
+      <p>These are just demos — your site would be built around your business, your brand and your goals. Let's talk about it.</p>
+      <a href="mailto:rdhdesign01@gmail.com?subject=Website%20Enquiry" class="btn">
+        Get in Touch
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      Built by <a href="../index.html">RDH Design</a> · <a href="mailto:rdhdesign01@gmail.com">rdhdesign01@gmail.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

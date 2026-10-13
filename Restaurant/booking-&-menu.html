@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Restaurant Name] — Table &amp; Menu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#ffffff;
+    color:#161514; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .serif { font-family:'Instrument Serif',serif; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:space-between; padding:32px 48px 60px;
+    background:#ffffff;
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-15%; right:-10%;
+    width:55%; height:130%; border-radius:50%;
+    background:radial-gradient(circle, rgba(220,180,120,.18), transparent 65%);
+    pointer-events:none;
+  }
+  .hero::after {
+    content:''; position:absolute; bottom:-20%; left:-8%;
+    width:40%; height:100%; border-radius:50%;
+    background:radial-gradient(circle, rgba(120,160,140,.12), transparent 65%);
+    pointer-events:none;
+  }
+  .hero > * { position:relative; z-index:1; }
+
+  .nav {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.82rem; color:#6a6560;
+  }
+  .nav .logo {
+    font-family:'Instrument Serif',serif; font-size:1.4rem;
+    color:#161514; letter-spacing:-.3px;
+  }
+  .nav .phone { font-weight:400; }
+
+  .hero-content { max-width:840px; }
+  .hero-content .tag {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#a8845a; font-weight:500; margin-bottom:32px;
+  }
+  .hero-content .tag::before {
+    content:''; width:28px; height:1px; background:#a8845a;
+  }
+  .hero-content h1 {
+    font-family:'Instrument Serif',serif; font-weight:400;
+    font-size:clamp(3rem,8vw,6rem); line-height:1.02;
+    letter-spacing:-1.5px; color:#161514;
+  }
+  .hero-content h1 em { font-style:italic; color:#a8845a; }
+  .hero-content p {
+    margin-top:28px; font-size:clamp(1rem,1.8vw,1.15rem);
+    color:#5a5550; max-width:520px; font-weight:300;
+  }
+  .hero-actions {
+    margin-top:44px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .btn-primary {
+    background:#161514; color:#ffffff; padding:18px 44px;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:background .25s, transform .25s;
+    display:inline-block; border:none; cursor:pointer;
+  }
+  .btn-primary:hover { background:#2a2826; transform:translateY(-2px); }
+  .btn-secondary {
+    background:transparent; border:1px solid #d8d4cc; color:#161514;
+    padding:18px 44px; font-size:.78rem; font-weight:500;
+    letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+    border-radius:2px; transition:border-color .25s;
+    display:inline-block; cursor:pointer;
+  }
+  .btn-secondary:hover { border-color:#161514; }
+
+  .hero-foot {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:24px; padding-top:32px;
+    border-top:1px solid rgba(0,0,0,.06);
+    font-size:.82rem; color:#6a6560; font-weight:300;
+  }
+  .hero-foot strong { display:block; color:#161514; font-weight:500; margin-bottom:4px; font-size:.9rem; }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding:110px 48px; }
+  .container { max-width:1080px; margin:0 auto; }
+  .label {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#a8845a; font-weight:500; margin-bottom:20px;
+  }
+  .label::before { content:''; width:24px; height:1px; background:#a8845a; }
+  h2 {
+    font-family:'Instrument Serif',serif; font-weight:400;
+    font-size:clamp(2rem,4.5vw,3rem); line-height:1.12;
+    letter-spacing:-1px; color:#161514; margin-bottom:20px;
+  }
+  h2 em { font-style:italic; color:#a8845a; }
+  .sub { color:#5a5550; font-weight:300; font-size:1.05rem; max-width:560px; }
+
+  /* ---- BOOKING ---- */
+  .booking {
+    background:#f6f3ee;
+    border-top:1px solid #ebe5dc; border-bottom:1px solid #ebe5dc;
+  }
+  .booking-grid {
+    display:grid; grid-template-columns:1fr 1.4fr; gap:70px; align-items:start;
+  }
+  .booking-intro p { color:#5a5550; font-weight:300; margin-bottom:16px; }
+  .booking-details {
+    margin-top:32px; padding-top:28px; border-top:1px solid #e0d8cc;
+  }
+  .booking-details p {
+    font-size:.9rem; color:#5a5550; margin-bottom:10px; font-weight:300;
+  }
+  .booking-details strong { color:#161514; font-weight:500; display:block; margin-bottom:2px; font-size:.78rem; letter-spacing:1px; text-transform:uppercase; }
+
+  .booking-form {
+    display:grid; grid-template-columns:1fr 1fr; gap:18px;
+  }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field.full { grid-column:1 / -1; }
+  .field label {
+    font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase;
+    color:#6a6560; font-weight:500;
+  }
+  .field input,
+  .field select {
+    background:#ffffff; border:1px solid #d8d4cc; border-radius:2px;
+    padding:15px 16px; color:#161514; font-family:'Inter',sans-serif;
+    font-size:.95rem; font-weight:400; outline:none;
+    transition:border-color .2s;
+  }
+  .field input:focus,
+  .field select:focus { border-color:#a8845a; }
+  .field select { cursor:pointer; }
+  .booking-submit {
+    grid-column:1 / -1; margin-top:8px;
+    background:#161514; color:#ffffff; border:none; cursor:pointer;
+    padding:18px; font-family:'Inter',sans-serif;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; border-radius:2px;
+    transition:background .25s;
+  }
+  .booking-submit:hover { background:#2a2826; }
+
+  /* ---- MENU ---- */
+  .menu-head { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; margin-bottom:60px; }
+  .menu-categories {
+    display:grid; grid-template-columns:1fr 1fr; gap:56px;
+  }
+  .menu-cat h3 {
+    font-family:'Instrument Serif',serif; font-size:1.6rem;
+    font-weight:400; color:#161514; margin-bottom:26px; letter-spacing:-.3px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .menu-cat h3::after {
+    content:''; flex:1; height:1px; background:#e0d8cc;
+  }
+  .menu-item {
+    padding:18px 0; border-bottom:1px solid #f0ece6;
+  }
+  .menu-item:last-child { border-bottom:none; }
+  .menu-item-top {
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  }
+  .menu-item .name {
+    font-size:1.02rem; color:#161514; font-weight:500;
+  }
+  .menu-item .price {
+    font-family:'Instrument Serif',serif; font-size:1.1rem;
+    color:#a8845a; white-space:nowrap;
+  }
+  .menu-item .desc {
+    font-size:.85rem; color:#6a6560; font-weight:300;
+    margin-top:4px; line-height:1.5;
+  }
+
+  /* ---- ABOUT ---- */
+  .about { background:#f6f3ee; border-top:1px solid #ebe5dc; border-bottom:1px solid #ebe5dc; }
+  .about-grid {
+    display:grid; grid-template-columns:1.2fr 1fr; gap:70px; align-items:center;
+  }
+  .about-text p { color:#5a5550; font-weight:300; margin-bottom:16px; }
+  .about-visual {
+    aspect-ratio:4/5; border-radius:2px;
+    background:linear-gradient(145deg,#e8dcc8,#c8b8a0);
+    position:relative; overflow:hidden;
+  }
+  .about-visual::after {
+    content:'🍽️'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); font-size:4rem; opacity:.4;
+  }
+
+  /* ---- GALLERY ---- */
+  .gallery-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:1080px; margin:0 auto;
+  }
+  .gal {
+    aspect-ratio:1; border-radius:2px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem; overflow:hidden;
+  }
+  .gal:nth-child(1) { background:linear-gradient(145deg,#e8dcc8,#d4c0a0); }
+  .gal:nth-child(2) { background:linear-gradient(145deg,#f0e4d0,#d8c8b0); }
+  .gal:nth-child(3) { background:linear-gradient(145deg,#d8e0d4,#b8c4b0); }
+  .gal:nth-child(4) { background:linear-gradient(145deg,#e8d8d0,#d0b8b0); }
+
+  /* ---- INFO ---- */
+  .info {
+    background:#f6f3ee; border-top:1px solid #ebe5dc;
+  }
+  .info-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:44px; max-width:1080px; margin:0 auto;
+  }
+  .info-block h3 {
+    font-family:'Instrument Serif',serif; font-size:1.25rem;
+    color:#a8845a; font-weight:400; margin-bottom:14px;
+  }
+  .info-block p { color:#5a5550; font-weight:300; font-size:.95rem; }
+
+  /* ---- CTA ---- */
+  .cta {
+    background:#161514; color:#f6f3ee; text-align:center;
+  }
+  .cta h2 { color:#f6f3ee; }
+  .cta h2 em { color:#d4b890; }
+  .cta p { color:#a8a29a; margin:0 auto 40px; max-width:480px; font-weight:300; }
+  .cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .cta .btn-primary { background:#d4b890; color:#161514; }
+  .cta .btn-primary:hover { background:#e0c8a0; }
+  .cta .btn-secondary { border-color:rgba(255,255,255,.2); color:#f6f3ee; }
+  .cta .btn-secondary:hover { border-color:#d4b890; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#161514; border-top:1px solid #2a2826;
+    text-align:center; padding:44px 48px; font-size:.82rem;
+    color:#8a827a; font-weight:300;
+  }
+  footer .brand {
+    font-family:'Instrument Serif',serif; font-size:1.2rem;
+    color:#f6f3ee; margin-bottom:10px;
+  }
+  footer small { display:block; margin-top:20px; color:#5a5550; font-size:.72rem; }
+
+  @media(max-width:800px){
+    section { padding:80px 24px; }
+    .hero { padding:26px 24px 44px; min-height:auto; }
+    .booking-grid { grid-template-columns:1fr; gap:44px; }
+    .menu-head { grid-template-columns:1fr; gap:16px; align-items:start; }
+    .menu-categories { grid-template-columns:1fr; gap:44px; }
+    .about-grid { grid-template-columns:1fr; gap:32px; }
+    .gallery-grid { grid-template-columns:1fr 1fr; }
+    .info-grid { grid-template-columns:1fr; gap:32px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="nav">
+    <span class="logo">[Restaurant Name]</span>
+    <span class="logo"><a href="index.html">Back to Showcase</a></span>
+    <span class="phone">☎ [000 000 0000]</span>
+  </div>
+
+  <div class="hero-content">
+    <span class="tag">Restaurant · [City]</span>
+    <h1>Good food, good people, <em>good evenings.</em></h1>
+    <p>Whether you're here for dinner with friends or just a coffee on your own — [Restaurant Name] is a place that feels like it was made for you.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book a Table</a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div>
+      <strong>Open Daily</strong>
+      Mon – Sun: 11:00 – 22:00
+    </div>
+    <div>
+      <strong>[Full Address]</strong>
+      [City, Postal Code]
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="container booking-grid">
+    <div class="booking-intro">
+      <span class="label">Reservations</span>
+      <h2>Book your <em>table.</em></h2>
+      <p>Pick your date and time, tell us how many are coming, and we'll confirm within the hour.</p>
+      <div class="booking-details">
+        <p><strong>Open Hours</strong>Mon – Sun: 11:00 – 22:00</p>
+        <p><strong>Phone</strong>☎ [000 000 0000]</p>
+        <p><strong>Walks-ins</strong>Always welcome</p>
+      </div>
+    </div>
+
+    <form class="booking-form" onsubmit="return handleBooking(event)">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+      </div>
+      <div class="field">
+        <label for="time">Time</label>
+        <select id="time" required>
+          <option value="">Select time</option>
+          <option>11:00</option>
+          <option>12:00</option>
+          <option>13:00</option>
+          <option>17:00</option>
+          <option>18:00</option>
+          <option>19:00</option>
+          <option>20:00</option>
+          <option>21:00</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="party">Party Size</label>
+        <select id="party" required>
+          <option value="">Select</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" placeholder="[000 000 0000]" required>
+      </div>
+      <div class="field full">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your full name" required>
+      </div>
+      <button type="submit" class="booking-submit">Confirm Reservation →</button>
+    </form>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="menu-head">
+      <div>
+        <span class="label">The Menu</span>
+        <h2>What's on <em>today.</em></h2>
+      </div>
+      <p class="sub">From slow breakfasts to late dinners — our menu shifts with the seasons and what's good right now.</p>
+    </div>
+
+    <div class="menu-categories">
+
+      <div class="menu-cat">
+        <h3>Starters</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Mains</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dish Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description of the dish]</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Dessert Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Drinks</h3>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="name">[Drink Name]</span>
+            <span class="price">R[00]</span>
+          </div>
+          <div class="desc">[Short description]</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container about-grid">
+    <div class="about-text">
+      <span class="label">Our Story</span>
+      <h2>Built for <em>gathering.</em></h2>
+      <p>[Restaurant Name] started with a simple idea — that dining should feel easy. No fuss, no formality, just good food, good drinks, and good company.</p>
+      <p>We've built a room that welcomes everyone — the family Sunday lunch, the first date, the quiet solo coffee, the celebration dinner. All of it.</p>
+    </div>
+    <div class="about-visual"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="label" style="justify-content:center;">Inside</span>
+      <h2>A look <em>around.</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal">🍽️</div>
+      <div class="gal">🥂</div>
+      <div class="gal">🍷</div>
+      <div class="gal">🍰</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info" id="visit">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="label" style="justify-content:center;">Visit</span>
+      <h2>Come <em>see us.</em></h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>Monday – Thursday: 11:00 – 22:00<br>
+           Friday – Saturday: 11:00 – 23:00<br>
+           Sunday: 11:00 – 21:00</p>
+      </div>
+      <div class="info-block">
+        <h3>Find Us</h3>
+        <p>[Full Address]<br>
+           [City, Postal Code]<br>
+           [Landmark or area hint]</p>
+      </div>
+      <div class="info-block">
+        <h3>Contact</h3>
+        <p>☎ [000 000 0000]<br>
+           ✉ [email@restaurant.com]<br>
+           Follow us on [Social]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <span class="label" style="justify-content:center;color:#d4b890;">Ready?</span>
+    <h2>Book a table or <em>just swing by.</em></h2>
+    <p>Either way — we'll save you a seat.</p>
+    <div class="cta-actions">
+      <a href="#booking" class="btn-primary">Book a Table</a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Restaurant Name]</div>
+  <div>[Full Address] · [City] · [Postal Code]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+<script>
+  function handleBooking(e) {
+    e.preventDefault();
+    var date = document.getElementById('date').value;
+    var time = document.getElementById('time').value;
+    var party = document.getElementById('party').value;
+    var name = document.getElementById('name').value;
+    var phone = document.getElementById('phone').value;
+
+    alert(
+      'Reservation Request\n\n' +
+      'Name: ' + name + '\n' +
+      'Date: ' + date + '\n' +
+      'Time: ' + time + '\n' +
+      'Party: ' + party + '\n' +
+      'Phone: ' + phone
+    );
+
+    // To send via WhatsApp instead, uncomment and add your number:
+    // var msg = encodeURIComponent(
+    //   'Reservation Request\n' +
+    //   'Name: ' + name + '\n' +
+    //   'Date: ' + date + '\n' +
+    //   'Time: ' + time + '\n' +
+    //   'Party: ' + party + '\n' +
+    //   'Phone: ' + phone
+    // );
+    // window.open('https://wa.me/[YOUR_NUMBER]?text=' + msg, '_blank');
+
+    return false;
+  }
+</script>
+
+</body>
+</html>

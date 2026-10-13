@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive — Member Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #f7f6fb;
+    --surface: #ffffff;
+    --surface-alt: #faf9fd;
+    --border: #ebe8f3;
+    --text: #211b33;
+    --text-soft: #6b6480;
+    --text-faint: #9791a8;
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+    --accent-soft: #f3eeff;
+    --pink: #ec4899;
+    --pink-soft: #fdf2f8;
+    --success: #10b981;
+    --success-soft: #ecfdf5;
+    --warning: #f59e0b;
+    --warning-soft: #fffbeb;
+    --radius: 14px;
+    --radius-sm: 9px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 2px rgba(33, 27, 51, 0.05);
+    --shadow: 0 2px 8px rgba(33, 27, 51, 0.07);
+    --shadow-md: 0 8px 24px rgba(33, 27, 51, 0.09);
+    --shadow-lg: 0 24px 48px rgba(33, 27, 51, 0.14);
+    --topbar-h: 68px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea, select { font-family: inherit; }
+
+  /* ============================================================
+     LOGIN
+  ============================================================ */
+  #loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(124, 58, 237, 0.1), transparent 42%),
+      radial-gradient(circle at 88% 80%, rgba(236, 72, 153, 0.09), transparent 42%),
+      var(--bg);
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 410px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 40px 36px;
+  }
+
+  .brand-mark {
+    width: 46px; height: 46px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 21px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 22px rgba(124, 58, 237, 0.32);
+  }
+
+  .login-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .login-card p.sub { color: var(--text-soft); font-size: 14px; margin-bottom: 28px; }
+
+  .form-row { margin-bottom: 16px; }
+  .form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .form-row input,
+  .form-row textarea,
+  .form-row select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    background: var(--surface-alt);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .form-row input:focus,
+  .form-row textarea:focus,
+  .form-row select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28);
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--surface-alt); }
+  .btn-block { width: 100%; }
+
+  .login-error { color: #dc2626; font-size: 13px; min-height: 18px; margin-top: 10px; }
+
+  .demo-hint {
+    margin-top: 20px;
+    padding: 12px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    color: var(--accent-hover);
+    text-align: center;
+  }
+
+  /* ============================================================
+     APP SHELL
+  ============================================================ */
+  #app { display: none; min-height: 100vh; }
+
+  /* TOPBAR */
+  .topbar {
+    height: var(--topbar-h);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+  }
+
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .topbar-brand .brand-mark { width: 32px; height: 32px; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: none; }
+
+  .topbar-nav { display: flex; gap: 4px; margin-left: 12px; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .nav-item svg { width: 17px; height: 17px; stroke-width: 2; }
+  .nav-item:hover { background: var(--surface-alt); color: var(--text); }
+  .nav-item.active { background: var(--accent-soft); color: var(--accent-hover); font-weight: 600; }
+
+  .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+
+  .search-mini { position: relative; }
+  .search-mini svg {
+    position: absolute;
+    left: 11px; top: 50%;
+    transform: translateY(-50%);
+    width: 15px; height: 15px;
+    color: var(--text-faint);
+  }
+  .search-mini input {
+    width: 200px;
+    padding: 8px 12px 8px 32px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13.5px;
+    background: var(--surface-alt);
+  }
+  .search-mini input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+  .avatar:hover { transform: scale(1.06); }
+
+  .menu-toggle {
+    display: none;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text);
+  }
+  .menu-toggle svg { width: 20px; height: 20px; display: block; }
+
+  /* LAYOUT */
+  .layout {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 56px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* ============================================================
+     VIEWS
+  ============================================================ */
+  .view { display: none; animation: fadeIn 0.3s ease; }
+  .view.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .view-head { margin-bottom: 22px; }
+  .view-title { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .view-sub { color: var(--text-soft); font-size: 14px; margin-top: 4px; }
+
+  /* ============================================================
+     CARDS
+  ============================================================ */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .card + .card { margin-top: 16px; }
+
+  .card-head {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card-head h3 { font-size: 15px; font-weight: 600; }
+  .card-body { padding: 20px; }
+
+  /* ============================================================
+     COMPOSER
+  ============================================================ */
+  .composer {
+    display: flex;
+    gap: 14px;
+  }
+  .composer .avatar { width: 44px; height: 44px; font-size: 15px; }
+  .composer-body { flex: 1; }
+  .composer textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 14.5px;
+    resize: none;
+    min-height: 74px;
+    background: var(--surface-alt);
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .composer textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .composer-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 12px;
+  }
+  .composer-tools { display: flex; gap: 6px; }
+  .tool-btn {
+    width: 34px; height: 34px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-soft);
+    transition: all 0.15s;
+  }
+  .tool-btn:hover { background: var(--accent-soft); color: var(--accent); }
+  .tool-btn svg { width: 18px; height: 18px; }
+
+  /* ============================================================
+     FEED POSTS
+  ============================================================ */
+  .post { padding: 20px; border-bottom: 1px solid var(--border); }
+  .post:last-child { border-bottom: none; }
+  .post-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .post-head .avatar { width: 42px; height: 42px; font-size: 14px; }
+  .post-meta { flex: 1; min-width: 0; }
+  .post-meta strong { display: block; font-size: 14.5px; font-weight: 600; }
+  .post-meta span { font-size: 12.5px; color: var(--text-faint); }
+  .post-tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+  }
+  .post-tag.pink { background: var(--pink-soft); color: var(--pink); }
+  .post-body { font-size: 14.5px; line-height: 1.65; color: #3d3654; margin-bottom: 14px; }
+  .post-body strong { color: var(--text); font-weight: 600; }
+
+  .post-actions { display: flex; gap: 8px; }
+  .reaction {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: all 0.15s;
+  }
+  .reaction svg { width: 16px; height: 16px; }
+  .reaction:hover { background: var(--surface-alt); color: var(--text); }
+  .reaction.liked { background: var(--pink-soft); color: var(--pink); }
+
+  /* ============================================================
+     SIDEBAR WIDGETS
+  ============================================================ */
+  .widget { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; }
+  .widget + .widget { margin-top: 16px; }
+  .widget-head { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+  .widget-head h3 { font-size: 14px; font-weight: 600; }
+  .widget-body { padding: 16px 18px; }
+
+  .profile-card { text-align: center; padding: 24px 18px; }
+  .profile-card .avatar { width: 64px; height: 64px; font-size: 22px; margin: 0 auto 14px; }
+  .profile-card h4 { font-size: 16px; font-weight: 700; }
+  .profile-card p { font-size: 13px; color: var(--text-soft); margin-top: 2px; }
+  .profile-stats { display: flex; justify-content: center; gap: 28px; margin: 18px 0 20px; }
+  .profile-stat strong { display: block; font-size: 18px; font-weight: 700; }
+  .profile-stat span { font-size: 11.5px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .member-item { display: flex; align-items: center; gap: 11px; padding: 9px 0; }
+  .member-item .avatar { width: 38px; height: 38px; font-size: 13px; }
+  .member-item .info { flex: 1; min-width: 0; }
+  .member-item .info strong { display: block; font-size: 13.5px; font-weight: 600; }
+  .member-item .info span { font-size: 12px; color: var(--text-faint); }
+  .follow-btn {
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+    transition: all 0.15s;
+  }
+  .follow-btn:hover { background: var(--accent); color: #fff; }
+  .follow-btn.following { background: var(--success-soft); color: var(--success); }
+
+  .topic-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13.5px;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .topic-item:hover { color: var(--accent); }
+  .topic-item .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* ============================================================
+     MEMBERS VIEW
+  ============================================================ */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .member-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .member-card .avatar { width: 54px; height: 54px; font-size: 18px; margin: 0 auto 14px; }
+  .member-card h4 { font-size: 15px; font-weight: 700; }
+  .member-card .role { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+  .member-card .bio { font-size: 12.5px; color: var(--text-soft); margin: 10px 0 16px; line-height: 1.5; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--success-soft);
+    color: var(--success);
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ============================================================
+     MESSAGES / THREADS
+  ============================================================ */
+  .thread {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .thread:last-child { border-bottom: none; }
+  .thread .avatar { width: 42px; height: 42px; font-size: 14px; }
+  .thread-body { flex: 1; min-width: 0; }
+  .thread-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .thread-top strong { font-size: 14px; font-weight: 600; }
+  .thread-top span { font-size: 12px; color: var(--text-faint); flex-shrink: 0; }
+  .thread-preview { font-size: 13.5px; color: var(--text-soft); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .unread { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex-shrink: 0; align-self: center; }
+
+  /* ============================================================
+     TOAST
+  ============================================================ */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--text);
+    color: #fff;
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 200;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast svg { color: #6ee7b7; flex-shrink: 0; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar-widgets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .sidebar-widgets .widget + .widget { margin-top: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 0 16px; gap: 12px; }
+    .menu-toggle { display: flex; }
+    .topbar-nav {
+      position: absolute;
+      top: var(--topbar-h);
+      left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      flex-direction: column;
+      padding: 10px;
+      gap: 4px;
+      margin: 0;
+      display: none;
+    }
+    .topbar-nav.open { display: flex; }
+    .nav-item { border-radius: var(--radius-sm); }
+    .search-mini { display: none; }
+    .layout { padding: 20px 16px 40px; }
+    .sidebar-widgets { grid-template-columns: 1fr; }
+    .toast { left: 16px; right: 16px; bottom: 16px; }
+    .view-title { font-size: 19px; }
+  }
+
+  @media (max-width: 480px) {
+    .login-card { padding: 32px 24px; }
+    .composer { gap: 10px; }
+    .composer .avatar { width: 38px; height: 38px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+    <!-- ============================================================
+       LOGIN
+  ============================================================ -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="brand-mark">H</div>
+      <h1>Welcome to Hive</h1>
+      <p class="sub">Sign in to connect with your community.</p>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="form-row">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" value="demo@hive.app" required />
+        </div>
+        <div class="form-row">
+          <label for="loginPass">Password</label>
+          <input type="text" id="loginPass" value="demo123" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="login-error" id="loginError"></div>
+      </form>
+
+      <div class="demo-hint">
+        Demo credentials are pre-filled — just press Sign In.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       APP
+  ============================================================ -->
+  <div id="app">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleNav()" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <div class="topbar-brand">
+        <div class="brand-mark">H</div>
+        Hive
+      </div>
+
+      <nav class="topbar-nav" id="topNav">
+        <button class="nav-item active" data-view="feed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Feed
+        </button>
+        <button class="nav-item" data-view="members">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Members
+        </button>
+        <button class="nav-item" data-view="messages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Messages
+        </button>
+
+             <button class="topbar-nav" id="topNav"><a href="index.html">Back to Showcase</a></button>
+      </nav>
+
+      <div class="topbar-actions">
+        <div class="search-mini">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div class="avatar" onclick="showToast('Profile menu')" title="Your profile">AM</div>
+      </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+
+      <!-- MAIN COLUMN -->
+      <div class="main-col">
+
+        <!-- ============ FEED ============ -->
+        <section class="view active" id="view-feed">
+          <div class="view-head">
+            <h2 class="view-title">Community Feed</h2>
+            <p class="view-sub">See what your fellow members are sharing.</p>
+          </div>
+
+          <!-- Composer -->
+          <div class="card">
+            <div class="card-body">
+              <div class="composer">
+                <div class="avatar">AM</div>
+                <div class="composer-body">
+                  <textarea id="postInput" placeholder="Share something with the community..."></textarea>
+                  <div class="composer-foot">
+                    <div class="composer-tools">
+                      <button class="tool-btn" title="Add image" onclick="showToast('Image upload')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      </button>
+                      <button class="tool-btn" title="Add link" onclick="showToast('Link added')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                      </button>
+                      <button class="tool-btn" title="Add emoji" onclick="showToast('Emoji picker')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                      </button>
+                    </div>
+                    <button class="btn btn-primary" onclick="createPost()">Post</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posts -->
+          <div class="card" id="feedPosts"></div>
+        </section>
+
+        <!-- ============ MEMBERS ============ -->
+        <section class="view" id="view-members">
+          <div class="view-head">
+            <h2 class="view-title">Members</h2>
+            <p class="view-sub">Meet the people in your community.</p>
+          </div>
+          <div class="members-grid" id="membersGrid"></div>
+        </section>
+
+        <!-- ============ MESSAGES ============ -->
+        <section class="view" id="view-messages">
+          <div class="view-head">
+            <h2 class="view-title">Messages</h2>
+            <p class="view-sub">Your recent conversations.</p>
+          </div>
+          <div class="card">
+            <div class="card-body" id="threadList"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SIDEBAR WIDGETS -->
+      <aside class="sidebar-widgets">
+
+        <!-- Profile card -->
+        <div class="widget">
+          <div class="profile-card">
+            <div class="avatar">AM</div>
+            <h4>Amara Mbeki</h4>
+            <p>Product Designer · Cape Town</p>
+            <div class="profile-stats">
+              <div class="profile-stat"><strong>248</strong><span>Posts</span></div>
+              <div class="profile-stat"><strong>1.2k</strong><span>Followers</span></div>
+              <div class="profile-stat"><strong>312</strong><span>Following</span></div>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="showToast('Profile editor')">Edit Profile</button>
+          </div>
+        </div>
+
+        <!-- Suggested members -->
+        <div class="widget">
+          <div class="widget-head"><h3>Suggested Members</h3></div>
+          <div class="widget-body" id="suggestedMembers"></div>
+        </div>
+
+        <!-- Trending topics -->
+        <div class="widget">
+          <div class="widget-head"><h3>Trending Topics</h3></div>
+          <div class="widget-body" id="trendingTopics"></div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* ============================================================
+       DATA
+    ============================================================ */
+    let posts = [
+      {
+        id: 1,
+        author: 'Thabo Mokoena',
+        initials: 'TM',
+        role: 'Frontend Developer',
+        time: '2 hours ago',
+        tag: 'Showcase',
+        tagClass: '',
+        body: 'Just shipped a new design system for our mobile app. Took three weeks of iteration but the consistency gains are huge. Happy to share the Figma file if anyone wants a look! 🎨',
+        likes: 42,
+        comments: 8,
+        liked: false,
+      },
+      {
+        id: 2,
+        author: 'Lerato Dlamini',
+        initials: 'LD',
+        role: 'Marketing Lead',
+        time: '5 hours ago',
+        tag: 'Discussion',
+        tagClass: 'pink',
+        body: 'Question for the group: what tools are you all using for community analytics? We\'re outgrowing our spreadsheet setup and I\'d love recommendations before we commit to something.',
+        likes: 27,
+        comments: 15,
+        liked: false,
+      },
+      {
+        id: 3,
+        author: 'Ryan Botha',
+        initials: 'RB',
+        role: 'Founder',
+        time: 'Yesterday',
+        tag: 'Announcement',
+        tagClass: '',
+        body: 'Excited to announce we\'ve hit <strong>10,000 members</strong> in the Hive community! Thank you to everyone who\'s contributed, shared, and supported each other. Here\'s to the next 10k. 🚀',
+        likes: 156,
+        comments: 34,
+        liked: true,
+      },
+    ];
+
+    const members = [
+      { name: 'Thabo Mokoena',  initials: 'TM', role: 'Frontend Developer', bio: 'Building delightful interfaces. Coffee-powered.' },
+      { name: 'Lerato Dlamini', initials: 'LD', role: 'Marketing Lead',     bio: 'Growth, community and storytelling.' },
+      { name: 'Ryan Botha',     initials: 'RB', role: 'Founder',            bio: 'Serial builder. Currently in SaaS.' },
+      { name: 'Nadia Adams',    initials: 'NA', role: 'UX Researcher',      bio: 'I ask the questions others forget to.' },
+      { name: 'Kyle van Wyk',   initials: 'KV', role: 'Backend Engineer',   bio: 'APIs, databases and clean architecture.' },
+      { name: 'Zanele Khumalo', initials: 'ZK', role: 'Content Creator',    bio: 'Telling stories that matter.' },
+    ];
+
+    const suggested = [
+      { name: 'Nadia Adams',    initials: 'NA', role: 'UX Researcher' },
+      { name: 'Kyle van Wyk',   initials: 'KV', role: 'Backend Engineer' },
+      { name: 'Zanele Khumalo', initials: 'ZK', role: 'Content Creator' },
+    ];
+
+    const topics = [
+      'Design Systems',
+      'Remote Work',
+      'Startup Funding',
+      'Web Performance',
+      'Community Building',
+    ];
+
+    const threads = [
+      { name: 'Thabo Mokoena',  initials: 'TM', preview: 'Thanks for the feedback on the design system!', time: '10m', unread: true },
+      { name: 'Lerato Dlamini', initials: 'LD', preview: 'Here are those analytics tools I mentioned...', time: '1h', unread: true },
+      { name: 'Ryan Botha',     initials: 'RB', preview: 'Would love to feature your work in the newsletter.', time: '3h', unread: false },
+      { name: 'Nadia Adams',    initials: 'NA', preview: 'Are you free for a quick call this week?', time: '1d', unread: false },
+    ];
+
+    /* ============================================================
+       LOGIN / LOGOUT
+    ============================================================ */
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value.trim();
+      if (email === 'demo@hive.app' && pass === 'demo123') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        renderAll();
+        showToast('Welcome back, Amara');
+      } else {
+        document.getElementById('loginError').textContent = 'Invalid email or password. Use the demo credentials.';
+      }
+    }
+
+    /* ============================================================
+       VIEW SWITCHING
+    ============================================================ */
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.dataset.view === viewName);
+      });
+
+      document.getElementById('topNav').classList.remove('open');
+    }
+
+    /* ============================================================
+       RENDER
+    ============================================================ */
+    function renderAll() {
+      renderFeed();
+      renderMembers();
+      renderSuggested();
+      renderTopics();
+      renderThreads();
+    }
+
+    function renderFeed() {
+      const el = document.getElementById('feedPosts');
+      if (!el) return;
+      el.innerHTML = posts.map(p => `
+        <div class="post">
+          <div class="post-head">
+            <div class="avatar">${p.initials}</div>
+            <div class="post-meta">
+              <strong>${p.author}</strong>
+              <span>${p.role} · ${p.time}</span>
+            </div>
+            <span class="post-tag ${p.tagClass}">${p.tag}</span>
+          </div>
+          <div class="post-body">${p.body}</div>
+          <div class="post-actions">
+            <button class="reaction ${p.liked ? 'liked' : ''}" onclick="toggleLike(${p.id})">
+              <svg viewBox="0 0 24 24" fill="${p.liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              ${p.likes}
+            </button>
+            <button class="reaction" onclick="showToast('Comments')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              ${p.comments}
+            </button>
+            <button class="reaction" onclick="showToast('Shared')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderMembers() {
+      const el = document.getElementById('membersGrid');
+      if (!el) return;
+      el.innerHTML = members.map(m => `
+        <div class="member-card">
+          <div class="avatar">${m.initials}</div>
+          <h4>${m.name}</h4>
+          <div class="role">${m.role}</div>
+          <p class="bio">${m.bio}</p>
+          <button class="btn btn-ghost btn-block" onclick="showToast('Viewing ${m.name}')">View Profile</button>
+        </div>
+      `).join('');
+    }
+
+    function renderSuggested() {
+      const el = document.getElementById('suggestedMembers');
+      if (!el) return;
+      el.innerHTML = suggested.map((m, i) => `
+        <div class="member-item">
+          <div class="avatar">${m.initials}</div>
+          <div class="info">
+            <strong>${m.name}</strong>
+            <span>${m.role}</span>
+          </div>
+          <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+        </div>
+      `).join('');
+    }
+
+    function renderTopics() {
+      const el = document.getElementById('trendingTopics');
+      if (!el) return;
+      el.innerHTML = topics.map(t => `
+        <div class="topic-item" onclick="showToast('Viewing #${t}')">
+          <span class="dot"></span>
+          #${t.replace(/\s+/g, '')}
+        </div>
+      `).join('');
+    }
+
+    function renderThreads() {
+      const el = document.getElementById('threadList');
+      if (!el) return;
+      el.innerHTML = threads.map(t => `
+        <div class="thread" onclick="showToast('Opening chat with ${t.name}')">
+          <div class="avatar">${t.initials}</div>
+          <div class="thread-body">
+            <div class="thread-top">
+              <strong>${t.name}</strong>
+              <span>${t.time}</span>
+            </div>
+            <div class="thread-preview">${t.preview}</div>
+          </div>
+          ${t.unread ? '<span class="unread"></span>' : ''}
+        </div>
+      `).join('');
+    }
+
+    /* ============================================================
+       INTERACTIONS
+    ============================================================ */
+    function createPost() {
+      const input = document.getElementById('postInput');
+      const text = input.value.trim();
+      if (!text) { showToast('Write something first'); return; }
+
+      posts.unshift({
+        id: Date.now(),
+        author: 'Amara Mbeki',
+        initials: 'AM',
+        role: 'Product Designer',
+        time: 'Just now',
+        tag: 'Post',
+        tagClass: '',
+        body: text,
+        likes: 0,
+        comments: 0,
+        liked: false,
+      });
+
+      input.value = '';
+      renderFeed();
+      showToast('Post published');
+    }
+
+    function toggleLike(id) {
+      const post = posts.find(p => p.id === id);
+      if (!post) return;
+      post.liked = !post.liked;
+      post.likes += post.liked ? 1 : -1;
+      renderFeed();
+    }
+
+    function toggleFollow(btn) {
+      const following = btn.classList.toggle('following');
+      btn.textContent = following ? 'Following' : 'Follow';
+      showToast(following ? 'Now following' : 'Unfollowed');
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    /* ============================================================
+       MOBILE NAV
+    ============================================================ */
+    function toggleNav() {
+      document.getElementById('topNav').classList.toggle('open');
+    }
+
+    /* ============================================================
+       INIT
+    ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => switchView(item.dataset.view));
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stay — Your Home Away From Home</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+  body { background:#0f1115; color:#fff; overflow-x:hidden; }
+
+  /* HERO */
+  .hero {
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:40px 20px;
+    background:linear-gradient(135deg,#1a1f2e 0%,#2d1b3d 100%);
+    position:relative;
+  }
+  .hero::after {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 40%,rgba(255,140,0,.15),transparent 60%);
+    pointer-events:none;
+  }
+  .badge {
+    display:inline-block; padding:8px 18px; border-radius:999px;
+    background:rgba(255,140,0,.15); color:#ff8c00;
+    font-size:.85rem; letter-spacing:1px; margin-bottom:24px;
+    border:1px solid rgba(255,140,0,.3);
+  }
+  .hero h1 { font-size:clamp(2rem,6vw,4rem); font-weight:800; line-height:1.1; margin-bottom:16px; }
+  .hero h1 span { color:#ff8c00; }
+  .hero p { font-size:clamp(1rem,2.5vw,1.25rem); color:#b8bdc9; max-width:600px; margin-bottom:32px; }
+  .stars { color:#ffc107; font-size:1.3rem; margin-bottom:8px; }
+  .cta {
+    display:inline-block; padding:16px 40px; border-radius:999px;
+    background:#ff8c00; color:#fff; text-decoration:none;
+    font-weight:700; font-size:1.05rem;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .cta:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(255,140,0,.4); }
+
+  /* SECTION */
+  section { padding:80px 20px; max-width:1000px; margin:0 auto; }
+  .reveal { opacity:0; transform:translateY(30px); transition:all .8s ease; }
+  .reveal.show { opacity:1; transform:translateY(0); }
+
+  h2 { font-size:clamp(1.5rem,4vw,2.25rem); margin-bottom:16px; }
+  .sub { color:#b8bdc9; margin-bottom:40px; }
+
+  /* FEATURES */
+  .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; }
+  .card {
+    background:#1a1f2e; border:1px solid #262c3d; border-radius:16px;
+    padding:28px; transition:transform .2s, border-color .2s;
+  }
+  .card:hover { transform:translateY(-5px); border-color:#ff8c00; }
+  .card .icon { font-size:2rem; margin-bottom:12px; }
+  .card h3 { margin-bottom:8px; color:#ff8c00; }
+  .card p { color:#b8bdc9; font-size:.95rem; }
+
+  /* RATE TABLE */
+  table { width:100%; border-collapse:collapse; margin-top:20px; border-radius:12px; overflow:hidden; }
+  th,td { padding:16px; text-align:left; border-bottom:1px solid #262c3d; }
+  th { background:#1a1f2e; color:#ff8c00; font-size:.85rem; letter-spacing:1px; text-transform:uppercase; }
+  tr.best td { background:rgba(255,140,0,.1); font-weight:700; }
+
+  /* JOURNEY */
+  .steps { display:flex; flex-direction:column; gap:20px; }
+  .step { display:flex; gap:20px; align-items:flex-start; }
+  .num {
+    flex-shrink:0; width:44px; height:44px; border-radius:50%;
+    background:#ff8c00; color:#fff; display:flex;
+    align-items:center; justify-content:center; font-weight:800;
+  }
+  .step h4 { margin-bottom:4px; }
+  .step p { color:#b8bdc9; font-size:.95rem; }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    text-align:center; padding:80px 20px;
+    background:linear-gradient(135deg,#2d1b3d,#1a1f2e);
+  }
+  .footer-cta h2 { margin-bottom:12px; }
+  .footer-cta p { color:#b8bdc9; margin-bottom:28px; }
+  .footer-cta .cta { margin-top:8px; }
+  small { display:block; color:#6b7280; margin-top:24px; font-size:.8rem; }
+</style>
+</head>
+<body>
+<h1><a href="index.html">Back to Showcase</a></h1>
+<!-- HERO -->
+<div class="hero">
+  <span class="badge">⭐ RATED [4.6] BY GUESTS</span>
+  <h1>Your Home<br>in <span>[Kimberley]</span></h1>
+  <div class="stars">★★★★★</div>
+  <p>Comfortable, well-located accommodation — book direct and get the best rate. No middlemen, no hidden fees.</p>
+  <a href="#book" class="cta">📞 Book Direct & Save</a>
+</div>
+
+<!-- FEATURES -->
+<section class="reveal">
+  <h2>Why Guests Choose Us</h2>
+  <p class="sub">Everything you need for a comfortable stay.</p>
+  <div class="features">
+    <div class="card"><div class="icon">📍</div><h3>Prime Location</h3><p>Close to everything — easy to find, easy to get around.</p></div>
+    <div class="card"><div class="icon">💰</div><h3>Best Rates</h3><p>Book direct and skip the OTA commission and markups.</p></div>
+    <div class="card"><div class="icon">⭐</div><h3>Loved by Guests</h3><p>Consistently rated high for cleanliness and comfort.</p></div>
+    <div class="card"><div class="icon">🛏️</div><h3>Comfortable Rooms</h3><p>Relaxing spaces designed for a good night's rest.</p></div>
+  </div>
+</section>
+
+<!-- RATE COMPARISON -->
+<section class="reveal">
+  <h2>Book Direct & Save</h2>
+  <p class="sub">Same stay, better price when you book with us directly.</p>
+  <table>
+    <tr><th>Channel</th><th>Rate / Night</th><th>Note</th></tr>
+    <tr><td>Booking.com</td><td>R[651]</td><td>Standard OTA rate</td></tr>
+    <tr><td>Agoda</td><td>R[700]</td><td>International booking</td></tr>
+    <tr class="best"><td>✔ Direct (WhatsApp)</td><td>Best Rate</td><td>Message us — save more</td></tr>
+  </table>
+</section>
+
+<!-- JOURNEY -->
+<section class="reveal">
+  <h2>How It Works</h2>
+  <p class="sub">From search to checkout in five easy steps.</p>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div><h4>Search</h4><p>Find accommodation in [your area].</p></div></div>
+    <div class="step"><div class="num">2</div><div><h4>Discover</h4><p>High rating, prime location, great value.</p></div></div>
+    <div class="step"><div class="num">3</div><div><h4>Book</h4><p>Message us direct for our best available rate.</p></div></div>
+    <div class="step"><div class="num">4</div><div><h4>Arrive & Relax</h4><p>Comfortable rooms, easy check-in.</p></div></div>
+    <div class="step"><div class="num">5</div><div><h4>Review</h4><p>Leave happy — and come back again.</p></div></div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta" id="book">
+  <h2>Ready to Book?</h2>
+  <p>[Property Name] · [Address]</p>
+  <a href="https://wa.me/[PHONE]" class="cta">💬 Chat on WhatsApp</a>
+  <small>Replace [bracketed] items with your client's details.</small>
+</div>
+
+<script>
+  // Scroll reveal animation
+  const obs = new IntersectionObserver(els => {
+    els.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

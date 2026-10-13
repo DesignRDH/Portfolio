@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Guesthouse — A Warm Welcome Awaits</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Georgia','Times New Roman',serif;
+    background:#f7f3ec; color:#2e2a24; line-height:1.6;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 40px; border-bottom:1px solid #e0d8c8;
+    font-family:'Segoe UI',sans-serif; font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .topbar .brand { font-weight:700; color:#3a5a40; font-size:1rem; }
+  .topbar .phone { color:#8a7e6b; }
+
+  /* HEADER */
+  header {
+    padding:90px 40px 70px; text-align:center;
+    background:#f7f3ec; position:relative;
+  }
+  header .kicker {
+    font-family:'Segoe UI',sans-serif; font-size:.8rem;
+    letter-spacing:3px; text-transform:uppercase;
+    color:#a35f4a; margin-bottom:18px;
+  }
+  header h1 {
+    font-size:clamp(2.2rem,6vw,4rem); font-weight:400;
+    line-height:1.1; max-width:720px; margin:0 auto 20px;
+  }
+  header h1 em { font-style:italic; color:#3a5a40; }
+  .divider {
+    width:60px; height:2px; background:#c9a86a; margin:26px auto;
+  }
+  header p { max-width:520px; margin:0 auto; color:#6b6357; font-size:1.05rem; }
+
+  /* PHOTO STRIP (CSS gradient placeholder) */
+  .strip {
+    display:grid; grid-template-columns:2fr 1fr 1fr;
+    gap:6px; height:280px; padding:0 40px;
+  }
+  .strip div { border-radius:4px; }
+  .strip .a { background:linear-gradient(135deg,#d6c9a8,#b8a677); }
+  .strip .b { background:linear-gradient(135deg,#a8bfa0,#7a9a72); }
+  .strip .c { background:linear-gradient(135deg,#c9a86a,#a35f4a); }
+
+  /* SECTION */
+  section { padding:80px 40px; max-width:1080px; margin:0 auto; }
+  .label {
+    font-family:'Segoe UI',sans-serif; font-size:.78rem;
+    letter-spacing:3px; text-transform:uppercase;
+    color:#a35f4a; margin-bottom:14px;
+  }
+  h2 { font-size:clamp(1.6rem,4vw,2.4rem); font-weight:400; margin-bottom:20px; }
+  h2 em { font-style:italic; color:#3a5a40; }
+
+  /* TWO COLUMN TEXT */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:50px; }
+  .two-col p { color:#6b6357; margin-bottom:16px; }
+  @media(max-width:720px){ .two-col{grid-template-columns:1fr; gap:20px;} }
+
+  /* ROOM CARDS */
+  .rooms { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:26px; }
+  .room {
+    background:#fff; border:1px solid #ece4d6; border-radius:6px;
+    overflow:hidden;
+  }
+  .room .img { height:170px; background:#d6c9a8; }
+  .room:nth-child(2) .img { background:#a8bfa0; }
+  .room:nth-child(3) .img { background:#c9a86a; }
+  .room .body { padding:24px; }
+  .room h3 { font-weight:400; font-size:1.3rem; margin-bottom:8px; }
+  .room p { color:#6b6357; font-size:.95rem; margin-bottom:16px; }
+  .room .rate {
+    font-family:'Segoe UI',sans-serif; font-weight:700;
+    color:#3a5a40; font-size:1.05rem;
+  }
+
+  /* QUOTE */
+  .quote {
+    background:#3a5a40; color:#f7f3ec; text-align:center;
+    padding:70px 40px;
+  }
+  .quote blockquote {
+    font-style:italic; font-size:clamp(1.2rem,3vw,1.7rem);
+    max-width:700px; margin:0 auto 16px; line-height:1.5;
+  }
+  .quote cite {
+    font-family:'Segoe UI',sans-serif; font-size:.85rem;
+    letter-spacing:2px; text-transform:uppercase; color:#c9a86a;
+    font-style:normal;
+  }
+
+  /* RATES */
+  .rates-list { max-width:600px; margin:0 auto; }
+  .rate-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 0; border-bottom:1px solid #e0d8c8;
+    font-family:'Segoe UI',sans-serif;
+  }
+  .rate-row .chan { color:#6b6357; }
+  .rate-row .price { font-weight:700; color:#2e2a24; }
+  .rate-row.highlight .chan { color:#3a5a40; font-weight:700; }
+  .rate-row.highlight .price { color:#3a5a40; }
+  .note {
+    text-align:center; margin-top:24px; color:#8a7e6b;
+    font-family:'Segoe UI',sans-serif; font-size:.9rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background:#2e2a24; color:#f7f3ec; text-align:center;
+    padding:70px 40px;
+  }
+  footer h2 { color:#f7f3ec; }
+  footer h2 em { color:#c9a86a; }
+  footer p { color:#b8ada0; margin:14px 0 28px; font-family:'Segoe UI',sans-serif; }
+  .btn {
+    display:inline-block; padding:15px 42px;
+    background:#c9a86a; color:#2e2a24; text-decoration:none;
+    font-family:'Segoe UI',sans-serif; font-weight:700;
+    letter-spacing:1px; text-transform:uppercase; font-size:.85rem;
+    border-radius:2px; transition:background .2s;
+  }
+  .btn:hover { background:#d9bc82; }
+  footer small { display:block; margin-top:30px; color:#6b6357; font-size:.75rem; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="brand">[Property Name]</span>
+  <span class="brand"><a href="index.html">Back to showcase</a></span>
+  <span class="phone">☎ [078 000 0000]</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="kicker">Guesthouse · [Kimberley]</div>
+  <h1>A warm welcome, <em>a restful stay.</em></h1>
+  <div class="divider"></div>
+  <p>Thoughtfully kept rooms, a peaceful setting, and genuine hospitality — the way travelling used to feel.</p>
+</header>
+
+<!-- PHOTO STRIP -->
+<div class="strip">
+  <div class="a"></div>
+  <div class="b"></div>
+  <div class="c"></div>
+</div>
+
+<!-- INTRO -->
+<section>
+  <div class="label">About Us</div>
+  <div class="two-col">
+    <div>
+      <h2>A place to <em>slow down.</em></h2>
+    </div>
+    <div>
+      <p>[Property Name] offers comfortable, well-appointed accommodation in the heart of [area]. Whether you're passing through or settling in for a while, you'll find everything you need for an easy, pleasant stay.</p>
+      <p>We keep things simple: clean rooms, fair rates, and a friendly welcome every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section style="padding-top:0;">
+  <div class="label">Rooms & Rates</div>
+  <h2>Choose your <em>comfort.</em></h2>
+  <div class="rooms" style="margin-top:36px;">
+    <div class="room">
+      <div class="img"></div>
+      <div class="body">
+        <h3>Standard Room</h3>
+        <p>Comfortable double bed, en-suite bathroom, and all the essentials.</p>
+        <div class="rate">From R[651] / night</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="img"></div>
+      <div class="body">
+        <h3>Family Room</h3>
+        <p>Extra space for the family, with room to relax after a long day.</p>
+        <div class="rate">From R[850] / night</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="img"></div>
+      <div class="body">
+        <h3>Long Stay</h3>
+        <p>Weekly and monthly rates for contractors, medical staff and travellers.</p>
+        <div class="rate">Ask for rates</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote">
+  <blockquote>"Exactly what we needed — clean, quiet and close to everything."</blockquote>
+  <cite>— A past guest</cite>
+</div>
+
+<!-- RATES -->
+<section>
+  <div class="label">Book Direct</div>
+  <h2>Always the <em>best rate.</em></h2>
+  <div class="rates-list" style="margin-top:36px;">
+    <div class="rate-row">
+      <span class="chan">Booking.com</span>
+      <span class="price">R[651]</span>
+    </div>
+    <div class="rate-row">
+      <span class="chan">Agoda</span>
+      <span class="price">R[700]</span>
+    </div>
+    <div class="rate-row highlight">
+      <span class="chan">✔ Book direct with us</span>
+      <span class="price">Best rate</span>
+    </div>
+  </div>
+  <p class="note">Message or call us directly for our best available price.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <h2>We'd love to <em>host you.</em></h2>
+  <p>[Property Name] · [Full Address]</p>
+  <a href="https://wa.me/[PHONE]" class="btn">Book on WhatsApp</a>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+</body>
+</html>

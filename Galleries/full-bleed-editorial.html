@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Photographer Name] — Photography</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#faf8f5;
+    color:#1a1a1a; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .serif { font-family:'Playfair Display',serif; }
+
+  /* ---- HERO ---- */
+  .hero {
+    height:100vh; min-height:640px; position:relative;
+    display:flex; align-items:flex-end;
+    padding:0 0 80px;
+    overflow:hidden;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(200,160,120,.35), transparent 55%),
+      radial-gradient(circle at 75% 65%, rgba(120,90,70,.4), transparent 55%),
+      linear-gradient(160deg,#3a2a20,#1a1410);
+  }
+  .hero-bg::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
+  }
+  .hero-inner {
+    position:relative; z-index:1;
+    max-width:1200px; margin:0 auto; width:100%;
+    padding:0 48px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:40px; flex-wrap:wrap;
+  }
+  .hero-text { max-width:640px; }
+  .hero-text .eyebrow {
+    display:inline-flex; align-items:center; gap:12px;
+    font-size:.72rem; letter-spacing:4px; text-transform:uppercase;
+    color:rgba(255,255,255,.7); font-weight:500; margin-bottom:24px;
+  }
+  .hero-text .eyebrow::before {
+    content:''; width:32px; height:1px; background:rgba(255,255,255,.5);
+  }
+  .hero-text h1 {
+    font-family:'Playfair Display',serif; font-weight:400;
+    font-size:clamp(3rem,8vw,6.5rem); line-height:1;
+    letter-spacing:-2px; color:#fff;
+  }
+  .hero-text h1 em { font-style:italic; font-weight:400; }
+  .hero-text p {
+    margin-top:24px; font-size:1.05rem; color:rgba(255,255,255,.75);
+    font-weight:300; max-width:480px;
+  }
+  .hero-meta {
+    text-align:right; color:rgba(255,255,255,.7);
+    font-size:.82rem; font-weight:300; letter-spacing:.5px;
+  }
+  .hero-meta strong {
+    display:block; color:#fff; font-weight:500;
+    font-size:.9rem; margin-bottom:6px;
+  }
+
+  /* ---- NAV ---- */
+  .nav {
+    position:absolute; top:0; left:0; right:0; z-index:2;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:32px 48px;
+    font-size:.82rem; color:rgba(255,255,255,.85);
+  }
+  .nav .logo {
+    font-family:'Playfair Display',serif; font-size:1.3rem;
+    color:#fff; letter-spacing:.5px;
+  }
+  .nav ul {
+    list-style:none; display:flex; gap:32px;
+  }
+  .nav ul a {
+    color:rgba(255,255,255,.75); text-decoration:none;
+    font-size:.82rem; font-weight:400; letter-spacing:.5px;
+    transition:color .2s;
+  }
+  .nav ul a:hover { color:#fff; }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding:120px 48px; }
+  .container { max-width:1200px; margin:0 auto; }
+  .label {
+    display:inline-flex; align-items:center; gap:12px;
+    font-size:.72rem; letter-spacing:4px; text-transform:uppercase;
+    color:#8a7a6a; font-weight:500; margin-bottom:24px;
+  }
+  .label::before { content:''; width:28px; height:1px; background:#8a7a6a; }
+  h2 {
+    font-family:'Playfair Display',serif; font-weight:400;
+    font-size:clamp(2rem,5vw,3.4rem); line-height:1.1;
+    letter-spacing:-1px; color:#1a1a1a; margin-bottom:20px;
+  }
+  h2 em { font-style:italic; }
+  .sub { color:#5a5550; font-weight:300; font-size:1.05rem; max-width:560px; }
+
+  /* ---- INTRO ---- */
+  .intro { padding-bottom:80px; }
+  .intro-grid {
+    display:grid; grid-template-columns:1fr 1.4fr; gap:80px; align-items:center;
+  }
+  .intro-text p { color:#5a5550; font-weight:300; margin-bottom:16px; font-size:1.02rem; }
+
+  /* ---- PORTFOLIO (full-bleed) ---- */
+  .portfolio { padding:0; }
+  .work {
+    position:relative; height:80vh; min-height:520px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .work-bg {
+    position:absolute; inset:0;
+    transition:transform 1.2s ease;
+  }
+  .work:hover .work-bg { transform:scale(1.04); }
+  .work-bg::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 50%);
+  }
+  .work-1 .work-bg { background:linear-gradient(145deg,#4a3520,#2a1a10); }
+  .work-2 .work-bg { background:linear-gradient(145deg,#2a3a30,#1a2420); }
+  .work-3 .work-bg { background:linear-gradient(145deg,#3a2a3a,#1a1020); }
+  .work-4 .work-bg { background:linear-gradient(145deg,#3a3020,#201810); }
+  .work-inner {
+    position:relative; z-index:1;
+    max-width:1200px; margin:0 auto; width:100%;
+    padding:0 48px 60px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:40px; flex-wrap:wrap;
+  }
+  .work-text { max-width:560px; }
+  .work-text .cat {
+    font-size:.72rem; letter-spacing:4px; text-transform:uppercase;
+    color:rgba(255,255,255,.7); font-weight:500; margin-bottom:14px;
+  }
+  .work-text h3 {
+    font-family:'Playfair Display',serif; font-weight:400;
+    font-size:clamp(1.8rem,4vw,3rem); line-height:1.1;
+    letter-spacing:-1px; color:#fff;
+  }
+  .work-text h3 em { font-style:italic; }
+  .work-text p {
+    margin-top:14px; color:rgba(255,255,255,.75);
+    font-weight:300; font-size:.95rem; max-width:440px;
+  }
+  .work-num {
+    font-family:'Playfair Display',serif; font-size:1rem;
+    color:rgba(255,255,255,.6); letter-spacing:2px;
+  }
+
+  /* ---- ABOUT ---- */
+  .about { background:#f2ede6; }
+  .about-grid {
+    display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center;
+  }
+  .about-visual {
+    aspect-ratio:4/5; border-radius:2px;
+    background:linear-gradient(145deg,#c8b8a0,#8a7a6a);
+    position:relative; overflow:hidden;
+  }
+  .about-visual::after {
+    content:'📷'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); font-size:4rem; opacity:.4;
+  }
+  .about-text p { color:#5a5550; font-weight:300; margin-bottom:16px; font-size:1.02rem; }
+
+  /* ---- SERVICES ---- */
+  .services-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:56px;
+    margin-top:60px;
+  }
+  .service h3 {
+    font-family:'Playfair Display',serif; font-weight:500;
+    font-size:1.4rem; color:#1a1a1a; margin-bottom:12px;
+    letter-spacing:-.3px;
+  }
+  .service .num {
+    font-family:'Playfair Display',serif; font-size:.9rem;
+    color:#8a7a6a; letter-spacing:2px; margin-bottom:16px;
+  }
+  .service p { color:#5a5550; font-weight:300; font-size:.95rem; }
+
+  /* ---- CTA ---- */
+  .cta {
+    background:#1a1a1a; color:#faf8f5; text-align:center;
+    padding:140px 48px;
+  }
+  .cta h2 { color:#faf8f5; }
+  .cta h2 em { color:#c8a878; }
+  .cta p { color:#a8a29a; margin:0 auto 44px; max-width:520px; font-weight:300; }
+  .cta-actions {
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  }
+  .btn-primary {
+    background:#faf8f5; color:#1a1a1a; padding:20px 48px;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:transform .25s, background .25s;
+    display:inline-block;
+  }
+  .btn-primary:hover { transform:translateY(-2px); background:#fff; }
+  .btn-secondary {
+    background:transparent; border:1px solid rgba(255,255,255,.25);
+    color:#faf8f5; padding:20px 48px;
+    font-size:.78rem; font-weight:500; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:border-color .25s;
+    display:inline-block;
+  }
+  .btn-secondary:hover { border-color:#c8a878; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#1a1a1a; border-top:1px solid #2a2a2a;
+    text-align:center; padding:48px; font-size:.82rem;
+    color:#8a827a; font-weight:300;
+  }
+  footer .brand {
+    font-family:'Playfair Display',serif; font-size:1.2rem;
+    color:#faf8f5; margin-bottom:10px;
+  }
+  footer small { display:block; margin-top:20px; color:#5a5550; font-size:.72rem; }
+
+  @media(max-width:800px){
+    section { padding:80px 24px; }
+    .hero { padding-bottom:56px; }
+    .hero-inner { padding:0 24px; }
+    .nav { padding:24px; }
+    .nav ul { display:none; }
+    .intro-grid { grid-template-columns:1fr; gap:40px; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .services-grid { grid-template-columns:1fr; gap:40px; }
+    .work-inner { padding:0 24px 40px; }
+    .work { height:70vh; min-height:440px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <nav class="nav">
+    <span class="logo">[Photographer Name]</span>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html">Showcase</a>
+    </ul>
+  </nav>
+
+  <div class="hero-bg"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow">Photography · [City]</span>
+      <h1>Light, story, <em>moment.</em></h1>
+      <p>Documentary and editorial photography for people, places, and moments worth remembering.</p>
+    </div>
+    <div class="hero-meta">
+      <strong>Available for bookings</strong>
+      [Year] · [City] &amp; beyond
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="container intro-grid">
+    <div>
+      <span class="label">About</span>
+      <h2>I photograph the <em>in-between.</em></h2>
+    </div>
+    <div class="intro-text">
+      <p>I'm [Photographer Name] — a photographer based in [City]. I work in a documentary style, following the moment rather than directing it.</p>
+      <p>Whether it's a wedding, a portrait session, or a story that needs telling, my goal is always the same: to make images that feel honest, warm, and true to the people in them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="work">
+
+  <div class="work work-1">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="cat">Weddings</div>
+        <h3>Two people, <em>one day.</em></h3>
+        <p>Documentary wedding photography — no posing, no fuss, just the day as it actually happened.</p>
+      </div>
+      <div class="work-num">01</div>
+    </div>
+  </div>
+
+  <div class="work work-2">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="cat">Portraits</div>
+        <h3>People, <em>properly seen.</em></h3>
+        <p>Portrait sessions that feel like conversations — relaxed, honest, and true to who you are.</p>
+      </div>
+      <div class="work-num">02</div>
+    </div>
+  </div>
+
+  <div class="work work-3">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="cat">Editorial</div>
+        <h3>Stories worth <em>telling.</em></h3>
+        <p>Editorial and commercial work for brands, publications, and people with something to say.</p>
+      </div>
+      <div class="work-num">03</div>
+    </div>
+  </div>
+
+  <div class="work work-4">
+    <div class="work-bg"></div>
+    <div class="work-inner">
+      <div class="work-text">
+        <div class="cat">Travel</div>
+        <h3>Places that <em>stay with you.</em></h3>
+        <p>Travel and landscape photography from [City] and beyond — the places I've been lucky enough to see.</p>
+      </div>
+      <div class="work-num">04</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-visual"></div>
+    <div class="about-text">
+      <span class="label">The Photographer</span>
+      <h2>Behind the <em>lens.</em></h2>
+      <p>I've been photographing for [X] years — first as a hobby, then as a calling. I work quietly, follow the light, and try to stay out of the way of the moment.</p>
+      <p>My work has taken me across [region/country] and into people's lives in ways I never expected. I'm grateful for every frame.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section>
+  <div class="container">
+    <span class="label">What I Do</span>
+    <h2>Services &amp; <em>sessions.</em></h2>
+    <div class="services-grid">
+      <div class="service">
+        <div class="num">01</div>
+        <h3>Weddings</h3>
+        <p>Full-day documentary coverage — from getting ready to the last dance. Packages from R[0000].</p>
+      </div>
+      <div class="service">
+        <div class="num">02</div>
+        <h3>Portraits</h3>
+        <p>Individual, couple, or family sessions. One hour, one location, [X] edited images. From R[0000].</p>
+      </div>
+      <div class="service">
+        <div class="num">03</div>
+        <h3>Editorial &amp; Commercial</h3>
+        <p>Brand shoots, event coverage, and editorial commissions. Custom quotes on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container">
+    <span class="label" style="justify-content:center;color:#c8a878;">Get in Touch</span>
+    <h2>Let's make something <em>worth keeping.</em></h2>
+    <p>Whether you have a date in mind or just a feeling you want captured — I'd love to hear about it.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/[YOUR_NUMBER]?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20photography%20session." class="btn-primary" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:[EMAIL]?subject=Photography%20Enquiry" class="btn-secondary">Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Photographer Name]</div>
+  <div>[City] · [Email] · [Instagram]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+</body>
+</html>

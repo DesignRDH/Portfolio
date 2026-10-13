@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Restaurant Name] — Reserve Your Table</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:#0d0c0a;
+    color:#e8e4dd; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .serif { font-family:'Cormorant Garamond',serif; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:space-between; padding:36px 48px 60px;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(180,120,60,.12), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(120,60,40,.1), transparent 55%),
+      #0d0c0a;
+    position:relative;
+  }
+  .nav {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.8rem; letter-spacing:1px; color:#8a8378;
+  }
+  .nav .logo {
+    font-family:'Cormorant Garamond',serif; font-size:1.3rem;
+    color:#e8e4dd; letter-spacing:.5px;
+  }
+  .nav .phone { font-weight:400; }
+
+  .hero-content { max-width:780px; }
+  .hero-content .tag {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#b4824a; font-weight:500; margin-bottom:32px;
+  }
+  .hero-content .tag::before {
+    content:''; width:28px; height:1px; background:#b4824a;
+  }
+  .hero-content h1 {
+    font-family:'Cormorant Garamond',serif; font-weight:300;
+    font-size:clamp(3rem,8vw,6rem); line-height:1.02;
+    letter-spacing:-1px; color:#f4f0e8;
+  }
+  .hero-content h1 em { font-style:italic; color:#b4824a; }
+  .hero-content p {
+    margin-top:30px; font-size:clamp(1rem,1.8vw,1.12rem);
+    color:#a8a196; max-width:480px; font-weight:300;
+  }
+  .hero-actions {
+    margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn-book {
+    background:#b4824a; color:#0d0c0a; padding:18px 44px;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:background .25s, transform .25s;
+    display:inline-block;
+  }
+  .btn-book:hover { background:#c99656; transform:translateY(-2px); }
+  .btn-ghost {
+    border:1px solid #3a3833; color:#e8e4dd; padding:18px 44px;
+    font-size:.78rem; font-weight:500; letter-spacing:2px;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:border-color .25s; display:inline-block;
+  }
+  .btn-ghost:hover { border-color:#b4824a; }
+
+  .hero-foot {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:24px; padding-top:36px;
+    border-top:1px solid rgba(255,255,255,.08);
+    font-size:.82rem; color:#8a8378; font-weight:300;
+  }
+  .hero-foot strong { display:block; color:#e8e4dd; font-weight:500; margin-bottom:4px; font-size:.9rem; }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding:110px 48px; }
+  .container { max-width:1080px; margin:0 auto; }
+  .label {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:#b4824a; font-weight:500; margin-bottom:22px;
+  }
+  .label::before { content:''; width:24px; height:1px; background:#b4824a; }
+  h2 {
+    font-family:'Cormorant Garamond',serif; font-weight:300;
+    font-size:clamp(2rem,4.5vw,3rem); line-height:1.1;
+    letter-spacing:-.8px; color:#f4f0e8; margin-bottom:20px;
+  }
+  h2 em { font-style:italic; color:#b4824a; }
+  .sub { color:#a8a196; font-weight:300; font-size:1.05rem; max-width:560px; }
+
+  /* ---- BOOKING ---- */
+  .booking {
+    background:#161410; border-top:1px solid #262320; border-bottom:1px solid #262320;
+  }
+  .booking-head { text-align:center; margin-bottom:56px; }
+  .booking-head .label { justify-content:center; }
+  .booking-head .label::before { display:none; }
+  .booking-form {
+    max-width:800px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field.full { grid-column:1 / -1; }
+  .field label {
+    font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase;
+    color:#8a8378; font-weight:500;
+  }
+  .field input,
+  .field select {
+    background:#0d0c0a; border:1px solid #33302b; border-radius:2px;
+    padding:15px 16px; color:#e8e4dd; font-family:'Inter',sans-serif;
+    font-size:.95rem; font-weight:300; outline:none;
+    transition:border-color .2s;
+  }
+  .field input:focus,
+  .field select:focus { border-color:#b4824a; }
+  .field select { cursor:pointer; }
+  .booking-submit {
+    grid-column:1 / -1; margin-top:12px;
+    background:#b4824a; color:#0d0c0a; border:none; cursor:pointer;
+    padding:18px; font-family:'Inter',sans-serif;
+    font-size:.78rem; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; border-radius:2px;
+    transition:background .25s;
+  }
+  .booking-submit:hover { background:#c99656; }
+  .booking-note {
+    text-align:center; margin-top:24px; font-size:.82rem;
+    color:#8a8378; font-weight:300; grid-column:1 / -1;
+  }
+
+  /* ---- ABOUT ---- */
+  .about-grid {
+    display:grid; grid-template-columns:1fr 1.2fr;
+    gap:70px; align-items:center;
+  }
+  .about-visual {
+    aspect-ratio:4/5; border-radius:2px;
+    background:linear-gradient(145deg,#2a2018,#4a3520);
+    position:relative; overflow:hidden;
+  }
+  .about-visual::after {
+    content:'🍷'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); font-size:4rem; opacity:.5;
+  }
+  .about-text p { color:#a8a196; font-weight:300; margin-bottom:16px; }
+
+  /* ---- MENU PREVIEW ---- */
+  .menu-preview { background:#161410; }
+  .menu-preview-head { text-align:center; margin-bottom:56px; }
+  .menu-preview-head .label { justify-content:center; }
+  .menu-preview-head .label::before { display:none; }
+  .menu-items { max-width:760px; margin:0 auto; }
+  .menu-item {
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:20px; padding:22px 0; border-bottom:1px solid #262320;
+  }
+  .menu-item:last-child { border-bottom:none; }
+  .menu-item .name {
+    font-family:'Cormorant Garamond',serif; font-size:1.35rem;
+    color:#f4f0e8; font-weight:400;
+  }
+  .menu-item .desc { font-size:.85rem; color:#8a8378; font-weight:300; margin-top:4px; }
+  .menu-item .price {
+    font-family:'Cormorant Garamond',serif; font-size:1.25rem;
+    color:#b4824a; white-space:nowrap;
+  }
+  .menu-preview-cta { text-align:center; margin-top:52px; }
+
+  /* ---- GALLERY ---- */
+  .gallery-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:14px; max-width:1080px; margin:0 auto;
+  }
+  .gal {
+    aspect-ratio:1; border-radius:2px; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.5rem; opacity:.85;
+  }
+  .gal:nth-child(1) { background:linear-gradient(145deg,#2a2018,#4a3520); }
+  .gal:nth-child(2) { background:linear-gradient(145deg,#1a2420,#2a3a30); }
+  .gal:nth-child(3) { background:linear-gradient(145deg,#2a1818,#4a2820); }
+  .gal:nth-child(4) { background:linear-gradient(145deg,#242024,#3a3238); }
+  .gal:nth-child(5) { background:linear-gradient(145deg,#2a2418,#4a3a20); }
+  .gal:nth-child(6) { background:linear-gradient(145deg,#182028,#283a48); }
+
+  /* ---- INFO ---- */
+  .info-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:40px; max-width:1080px; margin:0 auto;
+  }
+  .info-block h3 {
+    font-family:'Cormorant Garamond',serif; font-size:1.3rem;
+    color:#b4824a; font-weight:400; margin-bottom:14px;
+  }
+  .info-block p { color:#a8a196; font-weight:300; font-size:.95rem; }
+
+  /* ---- CTA ---- */
+  .cta {
+    background:#161410; text-align:center;
+    border-top:1px solid #262320;
+  }
+  .cta h2 { margin-bottom:16px; }
+  .cta p { color:#a8a196; margin:0 auto 36px; max-width:480px; font-weight:300; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background:#0d0c0a; border-top:1px solid #262320;
+    text-align:center; padding:44px 48px; font-size:.82rem;
+    color:#8a8378; font-weight:300;
+  }
+  footer .brand {
+    font-family:'Cormorant Garamond',serif; font-size:1.2rem;
+    color:#e8e4dd; margin-bottom:10px;
+  }
+  footer small { display:block; margin-top:20px; color:#5a554d; font-size:.72rem; }
+
+  @media(max-width:800px){
+    section { padding:80px 24px; }
+    .hero { padding:26px 24px 44px; }
+    .booking-form { grid-template-columns:1fr; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .gallery-grid { grid-template-columns:1fr 1fr; }
+    .info-grid { grid-template-columns:1fr; gap:32px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="nav">
+    <span class="logo">[Restaurant Name]</span>
+    <span class="logo"><a href="index.html">Back to Showcase</a> </span>
+    <span class="phone">☎ [000 000 0000]</span>
+  </div>
+
+  <div class="hero-content">
+    <span class="tag">Fine Dining · [City]</span>
+    <h1>An evening worth<br><em>savouring.</em></h1>
+    <p>Thoughtfully crafted dishes, a warm room, and a table waiting for you. Reserve your evening at [Restaurant Name].</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-book">Reserve a Table</a>
+      <a href="#menu" class="btn-ghost">View Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div>
+      <strong>Open Tuesday – Sunday</strong>
+      18:00 – 22:30
+    </div>
+    <div>
+      <strong>[Full Address]</strong>
+      [City, Postal Code]
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="container">
+    <div class="booking-head">
+      <span class="label">Reservations</span>
+      <h2>Book your <em>table.</em></h2>
+      <p class="sub" style="margin:0 auto;">Choose your date, time, and party size — we'll confirm your reservation within the hour.</p>
+    </div>
+
+    <form class="booking-form" onsubmit="return handleBooking(event)">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+      </div>
+      <div class="field">
+        <label for="time">Time</label>
+        <select id="time" required>
+          <option value="">Select a time</option>
+          <option>18:00</option>
+          <option>18:30</option>
+          <option>19:00</option>
+          <option>19:30</option>
+          <option>20:00</option>
+          <option>20:30</option>
+          <option>21:00</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="party">Party Size</label>
+        <select id="party" required>
+          <option value="">Select</option>
+          <option>1 guest</option>
+          <option>2 guests</option>
+          <option>3 guests</option>
+          <option>4 guests</option>
+          <option>5 guests</option>
+          <option>6 guests</option>
+          <option>7+ guests</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="[000 000 0000]" required>
+      </div>
+      <div class="field full">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your full name" required>
+      </div>
+      <button type="submit" class="booking-submit">Confirm Reservation →</button>
+      <p class="booking-note">Or call us directly on [000 000 0000]</p>
+    </form>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="container about-grid">
+    <div class="about-visual"></div>
+    <div class="about-text">
+      <span class="label">Our Story</span>
+      <h2>A table set with <em>intention.</em></h2>
+      <p>[Restaurant Name] was built around a simple idea — that a meal should feel like an occasion, even on an ordinary evening.</p>
+      <p>Every dish is prepared with care, every table set with intention, and every guest welcomed like they're coming home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU PREVIEW -->
+<section class="menu-preview" id="menu">
+  <div class="container">
+    <div class="menu-preview-head">
+      <span class="label">A Taste</span>
+      <h2>From our <em>menu.</em></h2>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="name">[Signature Dish One]</div>
+          <div class="desc">[Brief description of the dish and its ingredients]</div>
+        </div>
+        <div class="price">R[000]</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">[Signature Dish Two]</div>
+          <div class="desc">[Brief description of the dish and its ingredients]</div>
+        </div>
+        <div class="price">R[000]</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">[Signature Dish Three]</div>
+          <div class="desc">[Brief description of the dish and its ingredients]</div>
+        </div>
+        <div class="price">R[000]</div>
+      </div>
+    </div>
+    <div class="menu-preview-cta">
+      <a href="#" class="btn-ghost">Full Menu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="container">
+    <div class="menu-preview-head">
+      <span class="label">The Room</span>
+      <h2>A glimpse <em>inside.</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal">🍽️</div>
+      <div class="gal">🍷</div>
+      <div class="gal">🕯️</div>
+      <div class="gal">🥂</div>
+      <div class="gal">🍝</div>
+      <div class="gal">🍰</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section style="background:#161410;border-top:1px solid #262320;border-bottom:1px solid #262320;">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>Tuesday – Thursday: 18:00 – 22:00<br>
+           Friday – Saturday: 18:00 – 23:00<br>
+           Sunday: 12:00 – 21:00<br>
+           Monday: Closed</p>
+      </div>
+      <div class="info-block">
+        <h3>Find Us</h3>
+        <p>[Full Address]<br>
+           [City, Postal Code]<br>
+           [Landmark or area hint]</p>
+      </div>
+      <div class="info-block">
+        <h3>Contact</h3>
+        <p>☎ [000 000 0000]<br>
+           ✉ [email@restaurant.com]<br>
+           Follow us on [Social]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <span class="label" style="justify-content:center;">Reserve</span>
+    <h2>We'll keep a <em>table for you.</em></h2>
+    <p>Book online, or call us directly — either way, we look forward to hosting you.</p>
+    <a href="#booking" class="btn-book">Reserve a Table</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">[Restaurant Name]</div>
+  <div>[Full Address] · [City] · [Postal Code]</div>
+  <small>Replace [bracketed] items with your client's details.</small>
+</footer>
+
+<script>
+  function handleBooking(e) {
+    e.preventDefault();
+    var date = document.getElementById('date').value;
+    var time = document.getElementById('time').value;
+    var party = document.getElementById('party').value;
+    var name = document.getElementById('name').value;
+    var phone = document.getElementById('phone').value;
+
+    // For demo purposes — replace with your booking handler
+    alert(
+      'Reservation Request\n\n' +
+      'Name: ' + name + '\n' +
+      'Date: ' + date + '\n' +
+      'Time: ' + time + '\n' +
+      'Party: ' + party + '\n' +
+      'Phone: ' + phone
+    );
+
+    // To send via WhatsApp instead, uncomment below and add your number:
+    // var msg = encodeURIComponent(
+    //   'Reservation Request\n' +
+    //   'Name: ' + name + '\n' +
+    //   'Date: ' + date + '\n' +
+    //   'Time: ' + time + '\n' +
+    //   'Party: ' + party + '\n' +
+    //   'Phone: ' + phone
+    // );
+    // window.open('https://wa.me/[YOUR_NUMBER]?text=' + msg, '_blank');
+
+    return false;
+  }
+</script>
+
+</body>
+</html>
